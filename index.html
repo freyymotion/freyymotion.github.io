@@ -20,6 +20,7 @@
   --red: #FF4D4D;
   --purple: #B14DFF;
   --violet: #7458FF;
+  --accent: #9B7BFF;
   --font-display: 'Bricolage Grotesque', 'Segoe UI', system-ui, sans-serif;
   --font-body: 'Instrument Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
@@ -47,7 +48,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 a { color: inherit; }
-:focus-visible { outline: 2px solid var(--violet); outline-offset: 3px; border-radius: 4px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
 
 .wrap { max-width: 1080px; margin-inline: auto; padding-inline: 20px; }
 section { padding-block: 72px; scroll-margin-top: 64px; }
@@ -62,7 +63,7 @@ p { margin: 0; }
 .top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); border-bottom: 1px solid var(--line); }
 .top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 60px; }
 .brand { text-decoration: none; font: 800 1rem var(--font-display); letter-spacing: 0.02em; }
-.brand .bd { color: var(--violet); }
+.brand .bd { color: var(--accent); }
 .nav { display: none; gap: 24px; }
 .nav a { text-decoration: none; color: var(--muted); font-weight: 500; font-size: 0.9375rem; }
 .nav a:hover { color: var(--fg); }
@@ -71,7 +72,7 @@ p { margin: 0; }
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 46px; padding: 0 20px; border-radius: 4px; border: 1px solid var(--line); background: transparent; color: var(--fg); font: 600 0.9375rem var(--font-body); text-decoration: none; cursor: pointer; }
 .btn:hover { border-color: var(--fg); }
 .btn-primary { background: var(--fg); color: var(--bg); border-color: var(--fg); }
-.btn-primary:hover { background: var(--violet); border-color: var(--violet); color: #fff; }
+.btn-primary:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
 .btn-sm { min-height: 38px; padding: 0 14px; font-size: 0.875rem; }
 .btn[aria-disabled="true"] { cursor: not-allowed; color: var(--muted); border-style: dashed; }
 .btn[aria-disabled="true"]:hover { border-color: var(--line); }
@@ -103,11 +104,44 @@ p { margin: 0; }
 .proof b { display: block; font: 800 clamp(1.25rem, 4.5vw, 1.75rem)/1.1 var(--font-display); letter-spacing: -0.02em; }
 .proof span { display: block; margin-top: 4px; color: var(--muted); font: 500 0.6875rem var(--font-mono); letter-spacing: 0.06em; text-transform: uppercase; }
 .inc { display: grid; gap: 4px; width: 100%; font-size: 0.8125rem; }
-.inc > span::before { content: "✓"; color: var(--blue); margin-right: 8px; font-weight: 700; }
+.inc > span::before { content: "✓"; color: var(--accent); margin-right: 8px; font-weight: 700; }
 
+
+
+/* v3 hero: mascote apresenta, título vende */
+.kick { margin: 0 0 18px; font: 500 0.75rem var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+.kick i { font-style: normal; color: var(--accent); margin: 0 6px; }
+.hero .wrap h1 { text-transform: none; font-size: clamp(2.4rem, 9.5vw, 4.75rem); line-height: 1.02; letter-spacing: -0.035em; }
+@media (min-width: 1100px) { .hero .wrap h1 { font-size: 5.5rem; } }
+.hero .tagline { margin-top: 22px; color: var(--muted); font-weight: 500; }
+@media (prefers-reduced-motion: no-preference) { .hero h1, .hero .tagline, .hero .lede, .hero .cta, .kick { animation: up .7s cubic-bezier(.2,.8,.2,1) both; } .hero .tagline { animation-delay: .08s; } .hero .lede { animation-delay: .16s; } .hero .cta { animation-delay: .24s; } }
+@keyframes up { from { opacity: 0; transform: translateY(14px); } }
+.hero-mascot { width: 150px; }
+@media (min-width: 900px) { .live.hero-mascot { width: 400px; bottom: 10px; } }
+
+/* v3: etapas do briefing */
+.step-h { display: flex; align-items: baseline; gap: 10px; font: 700 1.0625rem/1.3 var(--font-display); letter-spacing: -0.01em; color: var(--fg); }
+.step-h b { font: 500 0.8125rem var(--font-mono); color: var(--accent); letter-spacing: 0.08em; }
+.step-s { margin: -6px 0 4px; color: var(--muted); font-size: 0.9375rem; }
+.styles { margin-top: 20px; }
+.brief { margin-top: 28px; padding-top: 28px; border-top: 1px solid var(--muted); }
+.fl { font-weight: 600; color: var(--fg); }
+#bGen { min-height: 52px; margin-top: 4px; }
+/* v3: textura e estrelas sutis */
+.hero::before { content: ""; position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(rgba(255,255,255,.16) 1px, transparent 1.2px); background-size: 26px 26px; -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 85%); mask-image: linear-gradient(180deg, #000 0%, transparent 85%); opacity: .5; }
+.star { position: absolute; pointer-events: none; z-index: 0; animation: spin 90s linear infinite; }
+.s1 { width: 340px; left: -120px; bottom: -80px; opacity: .22; }
+.s2 { width: 90px; right: 8%; top: 70px; opacity: .3; animation-duration: 60s; animation-direction: reverse; }
+.s3 { width: 220px; right: -70px; top: 30px; opacity: .22; }
+.s4 { width: 260px; left: -90px; top: 20px; opacity: .2; }
+#investimento, .contact { position: relative; overflow: hidden; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .star { animation: none; } }
+body { counter-reset: sec; }
+main > section:not(.hero) .eyebrow::before { counter-increment: sec; content: "0" counter(sec) " / "; color: var(--accent); }
 /* v2: conversão e curiosidade */
-.prog { position: fixed; top: 0; left: 0; height: 3px; width: 100%; transform-origin: 0 50%; transform: scaleX(0); background: linear-gradient(90deg, var(--blue), var(--violet)); z-index: 60; }
-.spot { position: fixed; inset: 0; pointer-events: none; z-index: 0; background: radial-gradient(520px circle at var(--mx, 70%) var(--my, 20%), color-mix(in srgb, var(--blue) 9%, transparent), transparent 60%); opacity: 0; transition: opacity 0.6s; }
+.prog { position: fixed; top: 0; left: 0; height: 3px; width: 100%; transform-origin: 0 50%; transform: scaleX(0); background: linear-gradient(90deg, var(--accent), var(--violet)); z-index: 60; }
+.spot { position: fixed; inset: 0; pointer-events: none; z-index: 0; background: radial-gradient(520px circle at var(--mx, 70%) var(--my, 20%), color-mix(in srgb, var(--accent) 9%, transparent), transparent 60%); opacity: 0; transition: opacity 0.6s; }
 @media (hover: hover) and (pointer: fine) { .spot.on { opacity: 1; } }
 main, .top, footer { position: relative; z-index: 1; }
 .hook { display: grid; gap: 4px; margin-top: 44px; max-width: 46ch; text-decoration: none; color: var(--muted); font-size: 0.9375rem; line-height: 1.5; }
@@ -129,12 +163,12 @@ main, .top, footer { position: relative; z-index: 1; }
 .sty em { font: 500 0.625rem var(--font-mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); font-style: normal; }
 .anchor { display: grid; gap: 2px; }
 .anchor s { color: var(--muted); font-size: 0.875rem; }
-.anchor b { color: var(--blue); font-size: 0.875rem; font-weight: 700; }
+.anchor b { color: var(--accent); font-size: 0.875rem; font-weight: 700; }
 @media (min-width: 1100px) { .wrap { max-width: 1200px; } .hero h1 { font-size: clamp(2.2rem, 11vw, 7.5rem); } }
 @media (max-width: 899px) { .plans { display: flex; flex-direction: column; } .plan.top-pick { order: -1; } }
 @media (min-width: 900px) {
   .plans { align-items: stretch; max-width: none; gap: 18px; }
-  .plan.top-pick { transform: translateY(-16px); padding-block: 28px 24px; box-shadow: 0 18px 50px -18px color-mix(in srgb, var(--blue) 55%, transparent); }
+  .plan.top-pick { transform: translateY(-16px); padding-block: 28px 24px; box-shadow: 0 18px 50px -18px color-mix(in srgb, var(--accent) 50%, transparent); }
   .plan.top-pick .price { font-size: 2.1rem; }
 }
 .hero { position: relative; overflow: hidden; padding-block: 64px 72px; }
@@ -217,6 +251,15 @@ body.lock { overflow: hidden; }
 .steps { list-style: none; margin: 32px 0 0; padding: 0; border-bottom: 1px solid var(--line); }
 .steps li { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 16px; padding-block: 24px; border-top: 1px solid var(--line); }
 .step-n { padding-top: 4px; font: 500 0.75rem var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--track); }
+.ex { margin-top: 24px; border: 1px solid var(--line); border-radius: 12px; }
+.ex summary { cursor: pointer; padding: 16px 18px; min-height: 48px; display: flex; align-items: center; justify-content: space-between; gap: 12px; font-weight: 600; list-style: none; }
+.ex summary::-webkit-details-marker { display: none; }
+.ex summary::after { content: "+"; color: var(--accent); font-size: 1.25rem; }
+.ex[open] summary::after { content: "−"; }
+.ex-b { padding: 4px 18px 18px; display: grid; gap: 14px; }
+.ex-b p { margin: 0; color: var(--fg); line-height: 1.55; }
+.ex-b .ex-t { font: 500 0.75rem var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.ex-b i { display: block; font: 500 0.6875rem var(--font-mono); font-style: normal; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 2px; }
 .rt { list-style: none; margin: 32px 0 0; padding: 0; border-bottom: 1px solid var(--line); counter-reset: r; }
 .rt li { counter-increment: r; display: grid; grid-template-columns: 28px minmax(0, 1fr) auto; column-gap: 14px; row-gap: 4px; align-items: baseline; padding: 20px 0; border-top: 1px solid var(--line); }
 .rt li::before { content: "0" counter(r); font: 500 0.75rem var(--font-mono); color: var(--muted); grid-row: 1 / span 2; }
@@ -237,7 +280,7 @@ body.lock { overflow: hidden; }
 .plan { transition: border-color 0.3s; }
 .plan { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; width: 100%; padding: 18px; text-align: left; font: inherit; color: inherit; cursor: pointer; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
 .plan:hover { border-color: var(--muted); }
-.plan.top-pick { --plan-c: var(--blue); border-color: var(--blue); }
+.plan.top-pick { --plan-c: var(--accent); border-color: var(--accent); }
 .plan[aria-pressed="true"] { border-color: var(--fg); box-shadow: inset 0 0 0 1px var(--fg), 0 0 20px 0 color-mix(in srgb, var(--fg) 28%, transparent); }
 .plan .price { display: inline-block; transform-origin: left center; transition: transform 0.3s ease; }
 .plan[aria-pressed="true"] .price { transform: scale(1.06); }
@@ -253,7 +296,7 @@ body.lock { overflow: hidden; }
   to { box-shadow: inset 0 0 0 1px var(--fg), 0 0 34px 4px color-mix(in srgb, var(--fg) 20%, transparent); }
 }
 .plan .name { font: 700 1rem var(--font-display); letter-spacing: -0.01em; }
-.badge { position: absolute; top: 14px; right: 14px; padding: 2px 8px; border-radius: 999px; background: var(--blue); color: var(--on-blue); font: 500 0.625rem var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; }
+.badge { position: absolute; top: 14px; right: 14px; padding: 2px 8px; border-radius: 999px; background: var(--accent); color: #0B0B0E; font: 500 0.625rem var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; }
 .from { font: 500 0.6875rem var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
 .price { font: 800 1.75rem/1.1 var(--font-display); letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
 .prow { display: flex; align-items: baseline; gap: 8px; }
@@ -270,7 +313,7 @@ body.lock { overflow: hidden; }
 .f { display: grid; gap: 8px; }
 .fl { font-size: 0.9375rem; font-weight: 500; }
 .inp { width: 100%; min-height: 46px; padding: 10px 14px; border-radius: 6px; border: 1px solid var(--line); background: var(--bg); color: var(--fg); font: 400 1rem var(--font-body); }
-.inp:focus { outline: 2px solid var(--violet); outline-offset: 1px; border-color: var(--violet); }
+.inp:focus { outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
 textarea.inp { resize: vertical; min-height: 84px; }
 .opts { display: flex; flex-wrap: wrap; gap: 8px; }
 .opt { min-height: 40px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--line); background: transparent; color: var(--fg); font: 500 0.875rem var(--font-body); cursor: pointer; }
@@ -309,7 +352,7 @@ textarea.inp { resize: vertical; min-height: 84px; }
 .faq summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 20px; font: 700 1.0625rem/1.3 var(--font-display); letter-spacing: -0.01em; }
 .faq summary::-webkit-details-marker { display: none; }
 .faq summary::after { content: "+"; flex: none; font: 400 1.5rem/1 var(--font-body); color: var(--muted); }
-.faq details[open] summary::after { content: "−"; color: var(--violet); }
+.faq details[open] summary::after { content: "−"; color: var(--accent); }
 .faq details p { padding-bottom: 22px; color: var(--muted); max-width: 60ch; }
 .contact { border-top: 1px solid var(--line); }
 .contact .lede { margin-top: 16px; }
@@ -319,6 +362,7 @@ textarea.inp { resize: vertical; min-height: 84px; }
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><filter id="boil" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="1" result="n"><animate attributeName="seed" values="1;2;3;4" dur="0.64s" calcMode="discrete" repeatCount="indefinite"/></feTurbulence><feDisplacementMap in="SourceGraphic" in2="n" scale="3.5" xChannelSelector="R" yChannelSelector="G"/></filter></svg>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="stg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/></linearGradient><polygon id="st8" points="50.0,0.0 58.0,30.6 85.4,14.6 69.4,42.0 100.0,50.0 69.4,58.0 85.4,85.4 58.0,69.4 50.0,100.0 42.0,69.4 14.6,85.4 30.6,58.0 0.0,50.0 30.6,42.0 14.6,14.6 42.0,30.6" fill="url(#stg)" fill-opacity=".05" stroke="url(#stg)" stroke-width=".5"/></defs></svg>
 <div class="prog" id="prog" aria-hidden="true"></div>
 <div class="spot" id="spot" aria-hidden="true"></div>
 <a class="sticky" id="stickyCta" href="#investimento" hidden>Ver planos ↓</a>
@@ -338,16 +382,17 @@ textarea.inp { resize: vertical; min-height: 84px; }
 
 <main>
   <section class="hero" id="inicio">
+    <svg class="star s1" viewBox="0 0 100 100" aria-hidden="true"><use href="#st8"/></svg><svg class="star s2" viewBox="0 0 100 100" aria-hidden="true"><use href="#st8"/></svg>
     <div class="wrap">
       <div class="live hero-mascot" id="mascot" role="img" aria-label="Mascote FREYY"><span class="body"></span><span class="mouth" id="mouth"></span><svg viewBox="0 0 860 762" aria-hidden="true"><g class="eye" id="eyeA"><circle class="pupil" id="pA" cx="445" cy="416" r="47"/></g><g class="eye" id="eyeB"><circle class="pupil" id="pB" cx="539" cy="439" r="31"/></g></svg></div>
-      <h1 aria-label="FREYY.MOTION"><span class="ch" style="--i:0" aria-hidden="true">F</span><span class="ch" style="--i:1" aria-hidden="true">R</span><span class="ch" style="--i:2" aria-hidden="true">E</span><span class="ch" style="--i:3" aria-hidden="true">Y</span><span class="ch" style="--i:4" aria-hidden="true">Y</span><span class="ch" style="--i:5" aria-hidden="true">.</span><span class="ch" style="--i:6" aria-hidden="true">M</span><span class="ch" style="--i:7" aria-hidden="true">O</span><span class="ch" style="--i:8" aria-hidden="true">T</span><span class="ch" style="--i:9" aria-hidden="true">I</span><span class="ch" style="--i:10" aria-hidden="true">O</span><span class="ch" style="--i:11" aria-hidden="true">N</span></h1>
-      <p class="tagline">Roteiro, locução e motion em um só anúncio, pronto pra vender.</p>
-      <p class="lede">Crio anúncios em vídeo para Reels e TikTok, voltados a quem vende comunidades no Discord, infoprodutos e SaaS. A entrega já vem com voz, som e legenda.</p>
+      <p class="kick">FREYY.MOTION <i>/</i> Anúncios em vídeo</p>
+      <h1>Roteiro, voz<br>e motion.</h1>
+      <p class="tagline">O anúncio inteiro, pronto pra publicar.</p>
+      <p class="lede">Crio anúncios em vídeo para Reels e TikTok. A entrega já vem com roteiro, voz, música e legenda.</p>
       <div class="cta">
-        <a class="btn btn-primary" href="#portfolio">Ver o que eu faço ↓</a>
-        <a class="btn" data-wa href="#contato">Chamar no WhatsApp</a>
+        <a class="btn btn-primary" href="#investimento">Conhecer os planos</a>
+        <a class="btn" href="#portfolio">Explorar os projetos</a>
       </div>
-      <a class="hook" href="#portfolio"><span>Os 2 primeiros segundos decidem se alguém continua assistindo.</span><span class="hook-b">Veja como eu prendo a atenção <i class="arr">↓</i></span></a>
     </div>
   </section>
 
@@ -366,20 +411,31 @@ textarea.inp { resize: vertical; min-height: 84px; }
     </div>
   </section>
 
-  <div class="bridge"><a href="#roteiro">Por que esses vídeos prendem? Está no roteiro <i class="arr">↓</i></a></div>
+  <div class="bridge"><a href="#roteiro">Como o roteiro de cada vídeo é feito <i class="arr">↓</i></a></div>
 
   <section id="roteiro">
     <div class="wrap">
       <p class="eyebrow">O roteiro</p>
-      <h2 style="margin-top:12px">Como eu faço o roteiro.</h2>
-      <p class="sec-sub" style="margin-top:12px">Cinco partes. Cada uma ativa uma reação diferente em quem está assistindo.</p>
+      <h2 style="margin-top:12px">Um bom anúncio não começa na animação.</h2>
+      <p class="sec-sub" style="margin-top:12px">Primeiro vem a ideia. Cada etapa do roteiro tem um propósito.</p>
       <ol class="rt">
-        <li><b>Gancho</b><em>Uma pergunta que incomoda e a pessoa responde sozinha na cabeça. Ela para.</em><span>curiosidade</span></li>
-        <li><b>Revelação</b><em>A solução aparece com nome. O incômodo vira alívio.</em><span>alívio</span></li>
-        <li><b>Explicação</b><em>Rápida e direta. Sem espaço pra dispersar.</em><span>clareza</span></li>
-        <li><b>Sem medo</b><em>Tiro as dúvidas antes de aparecerem, pra ela não sair.</em><span>segurança</span></li>
-        <li><b>Fechamento</b><em>A marca no impacto e uma pergunta final que fica na cabeça.</em><span>memória</span></li>
+        <li><b>Capturar</b><em>Despertar curiosidade logo no início.</em></li>
+        <li><b>Revelar</b><em>Apresentar a solução com o nome da marca.</em></li>
+        <li><b>Explicar</b><em>Mostrar o valor da oferta sem enrolação.</em></li>
+        <li><b>Convencer</b><em>Tirar as dúvidas e reduzir as objeções.</em></li>
+        <li><b>Marcar</b><em>Fechar com uma mensagem que fica na memória.</em></li>
       </ol>
+      <details class="ex">
+        <summary>Ver como isso vira um roteiro</summary>
+        <div class="ex-b">
+          <p class="ex-t">Roteiro do VYRO · projeto conceitual</p>
+          <p><i>01 Capturar</i>Você paga Netflix, Spotify, HBO, YouTube Premium... e só usa dois?</p>
+          <p><i>02 Revelar</i>Conheça a VYRO!</p>
+          <p><i>03 Explicar</i>Reunimos as principais plataformas em um só lugar para você comparar planos e encontrar opções com preços mais acessíveis.</p>
+          <p><i>04 Convencer</i>Tudo de forma simples e transparente, sem fidelidade e sem custos adicionais. Você tem total controle e flexibilidade para escolher e cancelar quando quiser.</p>
+          <p><i>05 Marcar</i>VYRO. Suas assinaturas, por menos. Por que pagar mais, se você pode pagar menos?</p>
+        </div>
+      </details>
     </div>
   </section>
 
@@ -427,7 +483,7 @@ textarea.inp { resize: vertical; min-height: 84px; }
       <ol class="steps">
         <li class="c-blue"><span class="step-n">Passo 1</span><div><h3>Briefing</h3><p>Você me manda o que vende e escolhe, entre os meus vídeos, o estilo que mais gostou. Um áudio de 1 minuto já resolve.</p></div></li>
         <li class="c-red"><span class="step-n">Passo 2</span><div><h3>Criação</h3><p>Eu crio roteiro, voz e motion. 1 ad em 3-4 dias úteis.</p></div></li>
-        <li class="c-purple"><span class="step-n">Passo 3</span><div><h3>Ajuste</h3><p>1 ajuste fino incluso por vídeo (cor, texto, tempo). Extra: R$50.</p></div></li>
+        <li class="c-purple"><span class="step-n">Passo 3</span><div><h3>Ajuste</h3><p>O Pack 3 Ads inclui 1 ajuste fino por vídeo (cor, texto ou tempo). Nos outros planos, cada ajuste custa R$50.</p></div></li>
       </ol>
     </div>
   </section>
@@ -435,6 +491,7 @@ textarea.inp { resize: vertical; min-height: 84px; }
   <div class="bridge"><a href="#investimento">Agora a pergunta que importa: quanto custa? <i class="arr">↓</i></a></div>
 
   <section id="investimento">
+    <svg class="star s3" viewBox="0 0 100 100" aria-hidden="true"><use href="#st8"/></svg>
     <div class="wrap">
       <p class="eyebrow">Investimento</p>
       <h2 style="margin-top:12px">Escolha o seu plano</h2>
@@ -444,7 +501,7 @@ textarea.inp { resize: vertical; min-height: 84px; }
           <span class="prow"><span class="from">A partir de</span><span class="price">R$100</span></span>
           <span class="desc">Criativos simples, em 2 estilos.</span>
           <span class="sty"><span>Estilo Parapy<em>veja no portfólio</em></span><span>Estilo Vanta<em>veja no portfólio</em></span></span>
-          <span class="inc"><span>Cortes e ritmo</span><span>Legendas</span><span>Música livre de direitos</span><span>Arquivo MP4 1080p 30fps</span></span>
+          <span class="inc"><span>Cortes e ritmo</span><span>Legendas</span><span>Música</span><span>Arquivo MP4 1080p 30fps</span></span>
           <span class="when">Vídeo de até 30 segundos. Entrega em até 3 dias úteis.</span>
           <span class="pick"></span>
         </button>
@@ -452,7 +509,7 @@ textarea.inp { resize: vertical; min-height: 84px; }
           <span class="name">Ad Único</span>
           <span class="prow"><span class="from">A partir de</span><span class="price">R$197</span></span>
           <span class="desc">Roteiro + Locução + Motion + Legenda.</span>
-          <span class="inc"><span>Roteiro</span><span>Locução de IA</span><span>Motion e legendas</span><span>1 ajuste incluso</span></span>
+          <span class="inc"><span>Roteiro</span><span>Locução de IA</span><span>Motion e legendas</span></span>
           <span class="when">Vídeo de até 30 segundos. Entrega em 3-4 dias úteis.</span>
           <span class="pick"></span>
         </button>
@@ -474,11 +531,12 @@ textarea.inp { resize: vertical; min-height: 84px; }
         <div id="sendBody" hidden>
           <h3 id="sendTitle"></h3>
           <div class="styles" id="styles" role="group" aria-label="Estilo do vídeo">
-            <span class="styles-label">Qual estilo você mais gostou?</span>
+            <span class="step-h"><b>01</b>Qual estilo você mais gostou?</span>
             <div class="chips" id="chips"></div>
           </div>
           <div class="brief" id="brief">
-            <span class="styles-label">Conte sobre o seu vídeo</span>
+            <span class="step-h"><b>02</b>Conte sobre o seu vídeo</span>
+            <p class="step-s">Perguntas rápidas. No fim eu monto a ficha pra você me enviar.</p>
             <label class="f"><span class="fl">O que você vende?</span><input class="inp" id="bProd" type="text" maxlength="120" autocomplete="off" placeholder="Ex.: comunidade de Discord, app, infoproduto"></label>
             <div class="f" data-key="Postar em" data-multi="1"><span class="fl">Onde vai postar?</span><div class="opts"><button class="opt" type="button" aria-pressed="false">Reels</button><button class="opt" type="button" aria-pressed="false">TikTok</button></div></div>
             <div class="f g-ad" data-key="Objetivo"><span class="fl">Qual o objetivo?</span><div class="opts"><button class="opt" type="button" aria-pressed="false">Vender</button><button class="opt" type="button" aria-pressed="false">Captar membros</button><button class="opt" type="button" aria-pressed="false">Baixar app</button><button class="opt" type="button" aria-pressed="false">Divulgar a marca</button></div></div>
@@ -531,7 +589,7 @@ textarea.inp { resize: vertical; min-height: 84px; }
         </details>
         <details>
           <summary>Quantos ajustes estão inclusos?</summary>
-          <p>1 ajuste fino por vídeo (cor, texto ou tempo). Cada ajuste extra custa R$50.</p>
+          <p>O Pack 3 Ads inclui 1 ajuste fino por vídeo (cor, texto ou tempo). Nos outros planos, não há ajuste incluso. Cada ajuste custa R$50.</p>
         </details>
         <details>
           <summary>Quanto tempo leva?</summary>
@@ -539,11 +597,11 @@ textarea.inp { resize: vertical; min-height: 84px; }
         </details>
         <details>
           <summary>Qual a duração dos vídeos?</summary>
-          <p>Eu edito vídeos de 15 a 30 segundos. Se o seu for mais longo, me chama antes pra eu ver se consigo.</p>
+          <p>Eu edito vídeos de até 30 segundos. Se o seu for mais longo, me chama antes pra eu ver se consigo.</p>
         </details>
         <details>
           <summary>Posso usar o vídeo em anúncio pago?</summary>
-          <p>Sim. Os vídeos são feitos pra isso: você pode usar no orgânico e em anúncio pago, no Instagram e no TikTok.</p>
+          <p>Os vídeos são feitos pra postar no Reels e no TikTok. A música pode ter direitos autorais, então se for rodar como anúncio pago, me avisa antes.</p>
         </details>
         <details>
           <summary>Como é o atendimento?</summary>
@@ -558,6 +616,7 @@ textarea.inp { resize: vertical; min-height: 84px; }
   </section>
 
   <section class="contact" id="contato">
+    <svg class="star s4" viewBox="0 0 100 100" aria-hidden="true"><use href="#st8"/></svg>
     <div class="wrap">
       <p class="eyebrow">Contato</p>
       <h2 style="margin-top:12px;max-width:16ch">Bora fazer seu anúncio?</h2>
