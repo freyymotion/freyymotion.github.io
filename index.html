@@ -27,7 +27,7 @@
 <style>html{-webkit-text-size-adjust:100%}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Caveat+Brush&display=swap">
 <style>
 /* Layout: preto e branco puro. Azul, vermelho, roxo e violeta aparecem só como efeito (faixa, números, destaques). Vídeos numa fila horizontal com arrastar. */
 :root {
@@ -48,6 +48,7 @@
   --accent: #9B7BFF;
   --font-display: 'Bricolage Grotesque', 'Segoe UI', system-ui, sans-serif;
   --font-body: 'Instrument Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-hand: 'Caveat Brush', 'Segoe Print', cursive;
   --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
   color-scheme: dark;
 }
@@ -152,8 +153,50 @@ p { margin: 0; }
 .brief { margin-top: 28px; padding-top: 28px; border-top: 1px solid var(--muted); }
 .fl { font-weight: 600; color: var(--fg); }
 #bGen { min-height: 52px; margin-top: 4px; }
+
+/* v4: glow de fundo, grafite, hover e joguinho */
+.orb { position: absolute; border-radius: 50%; pointer-events: none; z-index: 0; background: radial-gradient(closest-side, color-mix(in srgb, var(--accent) 30%, transparent), transparent); opacity: .5; animation: drift 18s ease-in-out infinite alternate; }
+.o1 { width: 340px; height: 340px; right: -90px; top: 40px; }
+.o2 { width: 360px; height: 360px; left: -110px; top: 30px; opacity: .35; }
+@media (min-width: 900px) { .o1 { width: 520px; height: 520px; right: 0; top: 10px; } .o2 { width: 460px; height: 460px; left: -120px; } }
+@keyframes drift { to { transform: translate(-22px, -16px) scale(1.07); } }
+.scrib { position: relative; display: inline-block; }
+.scrib svg { position: absolute; left: -2%; bottom: -.14em; width: 104%; height: .3em; overflow: visible; pointer-events: none; }
+.scrib path { fill: none; stroke: var(--fg); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; stroke-dasharray: 420; stroke-dashoffset: 420; animation: draw .9s .5s cubic-bezier(.3,.7,.2,1) forwards; }
+.scrib .p2 { stroke-width: 2.5; opacity: .6; animation-delay: .9s; }
+h2 .scrib path { stroke-width: 3; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+@media (prefers-reduced-motion: reduce) { .scrib path { animation: none; stroke-dashoffset: 0; } .orb { animation: none; } }
+@media (hover: hover) {
+  .btn { transition: transform .2s, border-color .2s, background .2s, box-shadow .2s; }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-primary:hover { box-shadow: 0 10px 30px -12px color-mix(in srgb, var(--accent) 65%, transparent); }
+  .card:hover { box-shadow: 0 14px 40px -18px color-mix(in srgb, var(--track) 60%, transparent); }
+  .plan:not(.top-pick):hover { transform: translateY(-3px); }
+  .plan { transition: border-color .3s, transform .25s; }
+}
+.btn:active, .opt:active, .plan:not(.top-pick):active { transform: scale(.98); }
+.live { -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
+.hold-hint { position: absolute; left: 0; right: 0; bottom: -22px; text-align: center; font: 500 .625rem var(--font-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); opacity: .55; pointer-events: none; white-space: nowrap; }
+.live.holding .body, .live.holding svg, .live.holding .mouth { animation: shk .12s linear infinite; }
+@keyframes shk { 25% { transform: translate(-1.5px, 1px) rotate(-1deg); } 75% { transform: translate(1.5px, -1px) rotate(1deg); } }
+.rain { position: fixed; inset: 0; z-index: 90; pointer-events: none; overflow: hidden; }
+.mini { position: absolute; top: -90px; background: var(--mascot) center / contain no-repeat; pointer-events: auto; cursor: pointer; touch-action: manipulation; animation: fall linear forwards; }
+@keyframes fall { to { transform: translateY(calc(100vh + 140px)) rotate(var(--r, 0deg)); } }
+.mini.pop { transition: transform .22s ease-out, opacity .22s; transform: scale(1.7); opacity: 0; pointer-events: none; }
+.bit { position: absolute; width: 6px; height: 6px; border-radius: 50%; background: var(--fg); pointer-events: none; animation: bit .5s ease-out forwards; }
+.bit:nth-child(3n) { background: var(--accent); }
+@keyframes bit { to { transform: translate(var(--dx), var(--dy)) scale(.2); opacity: 0; } }
+
+/* v5: caderno do motion designer */
+.hold-hint { font: 400 1.125rem/1 var(--font-hand); letter-spacing: 0; text-transform: none; color: var(--muted); opacity: .8; left: 112px; right: auto; bottom: 6px; text-align: left; transform: rotate(-4deg); }
+.hold-hint::before { content: "←"; margin-right: 6px; color: var(--accent); }
+@media (min-width: 900px) { .hold-hint { left: auto; right: 24px; bottom: -14px; } }
+.badge { top: -15px; right: 14px; padding: 0; background: none; color: var(--accent); font: 400 1.5rem/1 var(--font-hand); letter-spacing: 0; text-transform: none; transform: rotate(-5deg); }
+.badge::after { content: ""; display: block; height: 3px; margin-top: 2px; border-radius: 3px; background: var(--accent); transform: rotate(1deg); opacity: .8; }
+.sec-sub, .step-s { max-width: 58ch; }
 /* v3: textura e estrelas sutis */
-.hero::before { content: ""; position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(rgba(255,255,255,.16) 1px, transparent 1.2px); background-size: 26px 26px; -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 85%); mask-image: linear-gradient(180deg, #000 0%, transparent 85%); opacity: .5; }
+
 .star { position: absolute; pointer-events: none; z-index: 0; animation: spin 90s linear infinite; }
 .s1 { width: 340px; left: -120px; bottom: -80px; opacity: .22; }
 .s2 { width: 90px; right: 8%; top: 70px; opacity: .3; animation-duration: 60s; animation-direction: reverse; }
@@ -174,7 +217,7 @@ main, .top, footer { position: relative; z-index: 1; }
 .arr { display: inline-block; font-style: normal; animation: bob 1.6s ease-in-out infinite; }
 @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
 .bridge { text-align: center; padding: 8px 20px; }
-.bridge a { display: inline-block; padding: 14px 8px; text-decoration: none; color: var(--muted); font: 500 0.8125rem var(--font-mono); letter-spacing: 0.06em; text-transform: uppercase; }
+.bridge a { display: inline-block; padding: 14px 8px; text-decoration: underline wavy color-mix(in srgb, var(--accent) 55%, transparent); text-decoration-thickness: 1px; text-underline-offset: 6px; color: var(--muted); font: 400 1.25rem/1.2 "Caveat Brush", cursive; }
 .bridge a:hover { color: var(--fg); }
 .sticky { position: fixed; left: 50%; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 0); z-index: 40; padding: 0 26px; min-height: 48px; display: inline-flex; align-items: center; border-radius: 999px; background: var(--fg); color: var(--bg); font: 700 0.9375rem var(--font-body); text-decoration: none; box-shadow: 0 8px 28px rgba(0, 0, 0, 0.5); transition: opacity 0.3s, transform 0.3s; }
 .sticky[hidden] { display: none; }
@@ -196,7 +239,7 @@ main, .top, footer { position: relative; z-index: 1; }
   .plan.top-pick { transform: translateY(-16px); padding-block: 28px 24px; box-shadow: 0 18px 50px -18px color-mix(in srgb, var(--accent) 50%, transparent); }
   .plan.top-pick .price { font-size: 2.1rem; }
 }
-.hero { position: relative; overflow: hidden; padding-block: 64px 72px; }
+.hero { position: relative; overflow: hidden; padding-block: 56px 72px; }
 .url { font: 500 0.875rem var(--font-mono); color: var(--muted); letter-spacing: 0.04em; }
 .hero h1 { margin-top: 0; font-size: clamp(2.2rem, 11vw, 6.5rem); line-height: 1; letter-spacing: -0.03em; text-transform: uppercase; max-width: 100%; }
 .hero .wrap { position: relative; z-index: 1; }
@@ -329,7 +372,7 @@ body.lock { overflow: hidden; }
 .plan .when { margin-top: auto; padding-top: 8px; width: 100%; border-top: 1px solid var(--line); font-size: 0.8125rem; color: var(--muted); }
 .pick { margin-top: 2px; font: 600 0.8125rem var(--font-body); color: var(--plan-c, var(--fg)); }
 .plan[aria-pressed="true"] .pick::before { content: "Selecionado ✓"; }
-.plan[aria-pressed="false"] .pick::before { content: "Escolher este plano →"; }
+.plan[aria-pressed="false"] .pick::before { content: "Escolher este plano"; }
 .note { margin-top: 20px; color: var(--muted); font-size: 0.875rem; }
 
 .send { scroll-margin-top: 76px; margin-top: 24px; padding: 20px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); display: grid; gap: 14px; }
@@ -390,7 +433,6 @@ textarea.inp { resize: vertical; min-height: 84px; }
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><filter id="boil" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="1" result="n"><animate attributeName="seed" values="1;2;3;4" dur="0.64s" calcMode="discrete" repeatCount="indefinite"/></feTurbulence><feDisplacementMap in="SourceGraphic" in2="n" scale="3.5" xChannelSelector="R" yChannelSelector="G"/></filter></svg>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="stg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/></linearGradient><polygon id="st8" points="50.0,0.0 58.0,30.6 85.4,14.6 69.4,42.0 100.0,50.0 69.4,58.0 85.4,85.4 58.0,69.4 50.0,100.0 42.0,69.4 14.6,85.4 30.6,58.0 0.0,50.0 30.6,42.0 14.6,14.6 42.0,30.6" fill="url(#stg)" fill-opacity=".05" stroke="url(#stg)" stroke-width=".5"/></defs></svg>
 <div class="prog" id="prog" aria-hidden="true"></div>
-<div class="spot" id="spot" aria-hidden="true"></div>
 <a class="sticky" id="stickyCta" href="#investimento" hidden>Ver planos ↓</a>
 <header class="top">
   <div class="wrap">
@@ -408,11 +450,11 @@ textarea.inp { resize: vertical; min-height: 84px; }
 
 <main>
   <section class="hero" id="inicio">
+    <span class="orb o1" aria-hidden="true"></span>
     <svg class="star s1" viewBox="0 0 100 100" aria-hidden="true"><use href="#st8"/></svg><svg class="star s2" viewBox="0 0 100 100" aria-hidden="true"><use href="#st8"/></svg>
     <div class="wrap">
-      <div class="live hero-mascot" id="mascot" role="img" aria-label="Mascote FREY"><span class="body"></span><span class="mouth" id="mouth"></span><svg viewBox="0 0 860 762" aria-hidden="true"><g class="eye" id="eyeA"><circle class="pupil" id="pA" cx="445" cy="416" r="47"/></g><g class="eye" id="eyeB"><circle class="pupil" id="pB" cx="539" cy="439" r="31"/></g></svg></div>
-      <p class="kick">FREY.MOTION <i>/</i> Anúncios em vídeo</p>
-      <h1>Roteiro, voz<br>e motion.</h1>
+      <div class="live hero-mascot" id="mascot" role="img" aria-label="Mascote FREY"><span class="body"></span><span class="mouth" id="mouth"></span><svg viewBox="0 0 860 762" aria-hidden="true"><g class="eye" id="eyeA"><circle class="pupil" id="pA" cx="445" cy="416" r="47"/></g><g class="eye" id="eyeB"><circle class="pupil" id="pB" cx="539" cy="439" r="31"/></g></svg><span class="hold-hint" aria-hidden="true">segura o mascote</span></div>
+      <h1>Roteiro, voz<br>e <span class="scrib">motion<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 13 C 32 5, 62 17, 102 9 S 170 7, 197 12"/></svg></span>.</h1>
       <p class="tagline">O anúncio inteiro, pronto pra publicar.</p>
       <p class="lede">Crio anúncios em vídeo para Reels e TikTok. A entrega já vem com roteiro, voz, música e legenda.</p>
       <div class="cta">
@@ -437,11 +479,10 @@ textarea.inp { resize: vertical; min-height: 84px; }
     </div>
   </section>
 
-  <div class="bridge"><a href="#roteiro">Como o roteiro de cada vídeo é feito <i class="arr">↓</i></a></div>
+  <div class="bridge"><a href="#roteiro">Como o roteiro de cada vídeo é feito</a></div>
 
   <section id="roteiro">
     <div class="wrap">
-      <p class="eyebrow">O roteiro</p>
       <h2 style="margin-top:12px">Um bom anúncio não começa na animação.</h2>
       <p class="sec-sub" style="margin-top:12px">Primeiro vem a ideia. Cada etapa do roteiro tem um propósito.</p>
       <ol class="rt">
@@ -465,12 +506,11 @@ textarea.inp { resize: vertical; min-height: 84px; }
     </div>
   </section>
 
-  <div class="bridge"><a href="#sobre">Todos esses vídeos são conceitos. Quem faz? <i class="arr">↓</i></a></div>
+  <div class="bridge"><a href="#sobre">Todos esses vídeos são conceitos. Quem faz?</a></div>
 
   <section id="sobre">
     <div class="wrap about">
       <div class="about-main">
-        <p class="eyebrow">Sobre</p>
         <h2>Sou o João, FREY.</h2>
         <div class="stats">
           <div class="stat c-blue"><span class="big">4</span><span class="lbl">anos de edição</span></div>
@@ -500,11 +540,10 @@ textarea.inp { resize: vertical; min-height: 84px; }
     </div>
   </section>
 
-  <div class="bridge"><a href="#como">Quer um desses pro seu produto? Veja como funciona <i class="arr">↓</i></a></div>
+  <div class="bridge"><a href="#como">Quer um desses pro seu produto? Veja como funciona</a></div>
 
   <section id="como">
     <div class="wrap">
-      <p class="eyebrow">Como funciona</p>
       <h2 style="margin-top:12px">Do briefing ao anúncio no ar</h2>
       <ol class="steps">
         <li class="c-blue"><span class="step-n">Passo 1</span><div><h3>Briefing</h3><p>Você me manda o que vende e escolhe, entre os meus vídeos, o estilo que mais gostou. Um áudio de 1 minuto já resolve.</p></div></li>
@@ -514,17 +553,17 @@ textarea.inp { resize: vertical; min-height: 84px; }
     </div>
   </section>
 
-  <div class="bridge"><a href="#investimento">Agora a pergunta que importa: quanto custa? <i class="arr">↓</i></a></div>
+  <div class="bridge"><a href="#investimento">Agora a pergunta que importa: quanto custa?</a></div>
 
   <section id="investimento">
+    <span class="orb o2" aria-hidden="true"></span>
     <svg class="star s3" viewBox="0 0 100 100" aria-hidden="true"><use href="#st8"/></svg>
     <div class="wrap">
-      <p class="eyebrow">Investimento</p>
-      <h2 style="margin-top:12px">Escolha o seu plano</h2>
+      <h2 style="margin-top:12px">Escolha o seu <span class="scrib">plano<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 12 C 40 6, 80 16, 120 9 S 175 8, 197 12"/></svg></span></h2>
       <div class="plans" id="plans">
-        <button class="plan" type="button" data-plan="Edição simples" data-msg="Fala Frey, quero a Edição simples pro meu vídeo" data-styles="0" aria-pressed="false">
-          <span class="name">Edição simples</span>
-          <span class="prow"><span class="from">A partir de</span><span class="price">R$100</span></span>
+        <button class="plan" type="button" data-plan="Ad simples" data-msg="Fala Frey, quero o Ad simples pro meu vídeo" data-styles="0" aria-pressed="false">
+          <span class="name">Ad simples</span>
+          <span class="prow"><span class="from">A partir de</span><span class="price">R$70</span></span>
           <span class="desc">Criativos simples, em 2 estilos.</span>
           <span class="sty"><span>Estilo Parapy<em>veja no portfólio</em></span><span>Estilo Vanta<em>veja no portfólio</em></span></span>
           <span class="inc"><span>Cortes e ritmo</span><span>Legendas</span><span>Música</span></span>
@@ -533,17 +572,17 @@ textarea.inp { resize: vertical; min-height: 84px; }
         </button>
         <button class="plan" type="button" data-plan="Ad Único" data-msg="Fala Frey, quero o Ad Único pra [meu produto]" data-styles="1" aria-pressed="false">
           <span class="name">Ad Único</span>
-          <span class="prow"><span class="from">A partir de</span><span class="price">R$197</span></span>
+          <span class="prow"><span class="from">A partir de</span><span class="price">R$125</span></span>
           <span class="desc">Roteiro + Locução + Motion + Legenda.</span>
           <span class="inc"><span>Roteiro</span><span>Locução de IA</span><span>Motion e legendas</span><span>Arquivo MP4 em 1080p</span></span>
           <span class="when">Vídeo de até 30 segundos. Entrega em 3-4 dias úteis.</span>
           <span class="pick"></span>
         </button>
         <button class="plan top-pick" type="button" data-plan="Pack 3 Ads" data-msg="Fala Frey, quero o Pack 3 Ads pra [meu produto]" data-styles="1" aria-pressed="false">
-          <span class="badge">Mais pedido</span>
+          <span class="badge">o mais pedido</span>
           <span class="name">Pack 3 Ads</span>
-          <span class="prow"><span class="from">A partir de</span><span class="price">R$497</span></span>
-          <span class="anchor"><s>3 × R$197 = R$591</s><b>Você economiza R$94 · R$166 por vídeo</b></span>
+          <span class="prow"><span class="from">A partir de</span><span class="price">R$315</span></span>
+          <span class="anchor"><s>3 × R$125 = R$375</s><b>Você economiza R$60 · R$105 por vídeo</b></span>
           <span class="desc">3 anúncios pra testar abordagens diferentes da sua oferta.</span>
           <span class="inc"><span>Roteiro, locução e motion</span><span>Legendas em todos</span><span>Arquivos MP4 em 1080p</span><span>1 ajuste por vídeo</span><span>Entrega 1 por vez</span></span>
           <span class="when">Vídeos de até 30 segundos. Entrega escalonada em até 10 dias úteis (te mando 1 por vez).</span>
@@ -598,7 +637,6 @@ textarea.inp { resize: vertical; min-height: 84px; }
 
   <section id="duvidas">
     <div class="wrap">
-      <p class="eyebrow">Dúvidas</p>
       <h2 style="margin-top:12px">Perguntas frequentes</h2>
       <div class="faq">
         <details>
@@ -607,7 +645,7 @@ textarea.inp { resize: vertical; min-height: 84px; }
         </details>
         <details>
           <summary>Em qual formato o vídeo é entregue?</summary>
-          <p>Arquivo MP4 vertical, pronto pra postar. No Ad Único e no Pack 3 Ads, em 1080p. Na Edição simples, a qualidade acompanha o vídeo que você enviar.</p>
+          <p>Arquivo MP4 vertical, pronto pra postar. No Ad Único e no Pack 3 Ads, em 1080p. No Ad simples, a qualidade acompanha o vídeo que você enviar.</p>
         </details>
         <details>
           <summary>A locução é gravada por uma pessoa?</summary>
@@ -619,7 +657,7 @@ textarea.inp { resize: vertical; min-height: 84px; }
         </details>
         <details>
           <summary>Quanto tempo leva?</summary>
-          <p>A Edição simples leva até 3 dias úteis. O Ad Único leva de 3 a 4 dias úteis. O Pack 3 Ads leva até 10 dias úteis, e eu te mando 1 vídeo por vez.</p>
+          <p>O Ad simples leva até 3 dias úteis. O Ad Único leva de 3 a 4 dias úteis. O Pack 3 Ads leva até 10 dias úteis, e eu te mando 1 vídeo por vez.</p>
         </details>
         <details>
           <summary>Qual a duração dos vídeos?</summary>
@@ -644,7 +682,6 @@ textarea.inp { resize: vertical; min-height: 84px; }
   <section class="contact" id="contato">
     <svg class="star s4" viewBox="0 0 100 100" aria-hidden="true"><use href="#st8"/></svg>
     <div class="wrap">
-      <p class="eyebrow">Contato</p>
       <h2 style="margin-top:12px;max-width:16ch">Bora fazer seu anúncio?</h2>
       <p class="lede">Me chama e já abre com a mensagem pronta: "Fala Frey, quero um ad pra [meu produto]".</p>
       <div class="cta">
@@ -1217,6 +1254,56 @@ document.getElementById('sendCopy').addEventListener('click', function () {
   }
   var pk = document.querySelector('.plan.top-pick');
   if (pk && typeof pickPlan === 'function') pickPlan(pk.getAttribute('data-plan'), pk.getAttribute('data-msg'), pk.getAttribute('data-styles') === '1');
+})();
+
+/* v4: joguinho do mascote (segurar 2s) */
+(function () {
+  var m = document.getElementById('mascot');
+  if (!m) return;
+  var hint = m.querySelector('.hold-hint');
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) { if (hint) hint.hidden = true; return; }
+  var timer = null, active = false, sx = 0, sy = 0;
+  function cancel() { clearTimeout(timer); m.classList.remove('holding'); }
+  m.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+  m.addEventListener('pointerdown', function (e) {
+    if (active) return;
+    sx = e.clientX; sy = e.clientY; m.classList.add('holding');
+    timer = setTimeout(function () { m.classList.remove('holding'); start(); }, 2000);
+  });
+  m.addEventListener('pointermove', function (e) { if (Math.abs(e.clientX - sx) > 24 || Math.abs(e.clientY - sy) > 24) cancel(); });
+  ['pointerup', 'pointerleave', 'pointercancel'].forEach(function (ev) { m.addEventListener(ev, cancel); });
+  function start() {
+    if (active) return; active = true;
+    if (hint) hint.hidden = true;
+    var layer = document.createElement('div'); layer.className = 'rain'; layer.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(layer);
+    var n = 0, iv = setInterval(function () { if (n++ >= 18) { clearInterval(iv); return; } spawn(layer); }, 260);
+    setTimeout(function () { clearInterval(iv); layer.remove(); active = false; }, 8200);
+  }
+  function spawn(layer) {
+    var d = document.createElement('div'); d.className = 'mini';
+    var s = 46 + Math.random() * 28;
+    d.style.width = d.style.height = s + 'px';
+    d.style.left = Math.random() * Math.max(10, window.innerWidth - s) + 'px';
+    d.style.animationDuration = (2.2 + Math.random() * 1) + 's';
+    d.style.setProperty('--r', (Math.random() * 70 - 35) + 'deg');
+    d.addEventListener('pointerdown', function (e) { e.preventDefault(); e.stopPropagation(); boom(d, layer); });
+    d.addEventListener('animationend', function () { d.remove(); });
+    layer.appendChild(d);
+  }
+  function boom(d, layer) {
+    var r = d.getBoundingClientRect();
+    d.style.animation = 'none'; d.style.left = r.left + 'px'; d.style.top = r.top + 'px'; d.style.transform = 'none';
+    void d.offsetWidth; d.classList.add('pop');
+    for (var i = 0; i < 8; i++) {
+      var b = document.createElement('span'); b.className = 'bit';
+      var a = (Math.PI * 2 * i) / 8, dist = 28 + Math.random() * 26;
+      b.style.left = (r.left + r.width / 2) + 'px'; b.style.top = (r.top + r.height / 2) + 'px';
+      b.style.setProperty('--dx', Math.cos(a) * dist + 'px'); b.style.setProperty('--dy', Math.sin(a) * dist + 'px');
+      layer.appendChild(b); setTimeout((function (x) { return function () { x.remove(); }; })(b), 520);
+    }
+    setTimeout(function () { d.remove(); }, 260);
+  }
 })();
 </script>
 </body>
