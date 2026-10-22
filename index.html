@@ -589,39 +589,17 @@ textarea.inp { resize: vertical; min-height: 84px; }
           <span class="pick"></span>
         </button>
       </div>
-      <p class="note">*Valores base com material enviado. Projetos complexos sob consulta.</p>
+      <p class="note">*Valores base com material enviado. Projetos complexos sob consulta. <a href="/guia/">Como pedir</a>.</p>
 
       <div class="send" id="send">
         <p class="hint" id="sendHint">Toque em um plano para escolher onde mandar a mensagem.</p>
         <div id="sendBody" hidden>
           <h3 id="sendTitle"></h3>
           <div class="styles" id="styles" role="group" aria-label="Estilo do vídeo">
-            <span class="step-h"><b>01</b>Qual estilo você mais gostou?</span>
+            <span class="step-h">Qual estilo você mais gostou?</span>
             <div class="chips" id="chips"></div>
           </div>
-          <div class="brief" id="brief">
-            <span class="step-h"><b>02</b>Conte sobre o seu vídeo</span>
-            <p class="step-s">Perguntas rápidas. As respostas ficam no seu aparelho. Só chegam até mim se você enviar a ficha.</p>
-            <label class="f"><span class="fl">O que você vende?</span><input class="inp" id="bProd" type="text" maxlength="120" autocomplete="off" placeholder="Ex.: comunidade de Discord, app, infoproduto"></label>
-            <div class="f" data-key="Postar em" data-multi="1"><span class="fl">Onde vai postar?</span><div class="opts"><button class="opt" type="button" aria-pressed="false">Reels</button><button class="opt" type="button" aria-pressed="false">TikTok</button></div></div>
-            <div class="f g-ad" data-key="Objetivo"><span class="fl">Qual o objetivo?</span><div class="opts"><button class="opt" type="button" aria-pressed="false">Vender</button><button class="opt" type="button" aria-pressed="false">Captar membros</button><button class="opt" type="button" aria-pressed="false">Baixar app</button><button class="opt" type="button" aria-pressed="false">Divulgar a marca</button></div></div>
-            <label class="f g-ad"><span class="fl">Quem é o público?</span><input class="inp" id="bPub" type="text" maxlength="100" autocomplete="off" placeholder="Ex.: gamers, empreendedores, estudantes"></label>
-            <div class="f g-ad" data-key="Tom"><span class="fl">Qual o tom do vídeo?</span><div class="opts"><button class="opt" type="button" aria-pressed="false">Direto</button><button class="opt" type="button" aria-pressed="false">Engraçado</button><button class="opt" type="button" aria-pressed="false">Sério</button><button class="opt" type="button" aria-pressed="false">Ousado</button></div></div>
-            <div class="f" data-key="Material"><span class="fl">Tem logo, cores ou material pra mandar?</span><div class="opts"><button class="opt" type="button" aria-pressed="false">Tenho logo e material</button><button class="opt" type="button" aria-pressed="false">Ainda não tenho</button></div></div>
-            <div class="f" data-key="Prazo"><span class="fl">Tem prazo?</span><div class="opts"><button class="opt" type="button" aria-pressed="false">Sem pressa</button><button class="opt" type="button" aria-pressed="false">Tenho uma data</button></div></div>
-            <label class="f"><span class="fl">Algo mais que eu precise saber? (opcional)</span><textarea class="inp" id="bMore" rows="3" maxlength="300" placeholder="Referência, ideia, link..."></textarea></label>
-            <button class="btn btn-primary" id="bGen" type="button">Gerar minha ficha</button>
-            <p class="hint" id="bErr" role="alert" hidden></p>
-            <div class="bout" id="bOut" hidden>
-              <img id="bImg" alt="Ficha de briefing com as suas respostas">
-              <div class="cta">
-                <button class="btn btn-primary" id="bShare" type="button">Mandar pro Frey</button>
-                <button class="btn" id="bSave" type="button">Baixar imagem</button>
-                <button class="btn" id="bCopy" type="button">Copiar texto</button>
-              </div>
-              <p class="hint" id="bNote"></p>
-            </div>
-          </div>
+          <p class="hint">Quer adiantar? <a href="/guia/#ficha">Preencha a ficha de briefing</a> e me mande pelo Instagram.</p>
           <p class="msg" id="sendMsg" style="margin-top:12px"></p>
           <div class="cta">
             <a class="btn btn-primary" id="sendWa" href="#investimento">Mandar no WhatsApp</a>
@@ -693,7 +671,7 @@ textarea.inp { resize: vertical; min-height: 84px; }
 </main>
 
 <footer class="foot">
-  <div class="wrap">© 2026 FREY.MOTION</div>
+  <div class="wrap">© 2026 FREY.MOTION · <a href="/guia/">Como pedir</a></div>
 </footer>
 
 <div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="mtitle">
@@ -1050,169 +1028,6 @@ document.getElementById('sendCopy').addEventListener('click', function () {
   m.addEventListener('click', talk);
   m.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') talk(); });
   (function idle() { setTimeout(function () { talk(); idle(); }, 6000 + Math.random() * 5000); })();
-})();
-
-/* ficha de briefing */
-(function () {
-  var brief = document.getElementById('brief');
-  if (!brief) return;
-  var COLORS = { VYRO: '#A66BFF', Nova: '#4D7CFF', Vanta: '#19B38A', FocusMode: '#B6F23A', Flygo: '#FFC93C', Parapy: '#3DDC84', AERO: '#6EC6FF' };
-  var file = null, textOut = '';
-  var gen = document.getElementById('bGen'), errEl = document.getElementById('bErr');
-  var out = document.getElementById('bOut'), img = document.getElementById('bImg'), note = document.getElementById('bNote');
-
-  brief.addEventListener('click', function (e) {
-    var b = e.target.closest('.opt');
-    if (!b) return;
-    var grp = b.closest('.f'), multi = grp.getAttribute('data-multi') === '1';
-    var on = b.getAttribute('aria-pressed') === 'true';
-    if (!multi) Array.prototype.forEach.call(grp.querySelectorAll('.opt'), function (o) { o.setAttribute('aria-pressed', 'false'); });
-    b.setAttribute('aria-pressed', on ? 'false' : 'true');
-  });
-
-  function picked(grp) {
-    return Array.prototype.map.call(grp.querySelectorAll('.opt[aria-pressed="true"]'), function (o) { return o.textContent; }).join(', ');
-  }
-
-  function collect() {
-    var rows = [];
-    function add(k, v) { v = (v || '').replace(/\s+/g, ' ').trim(); if (v) rows.push([k, v]); }
-    add('O que vende', document.getElementById('bProd').value);
-    var groups = brief.querySelectorAll('.f[data-key]');
-    var map = {};
-    Array.prototype.forEach.call(groups, function (g) {
-      if (curStyled === false && g.classList.contains('g-ad')) return;
-      map[g.getAttribute('data-key')] = picked(g);
-    });
-    add('Postar em', map['Postar em']);
-    if (curStyled) { add('Objetivo', map['Objetivo']); add('Público', document.getElementById('bPub').value); add('Tom', map['Tom']); }
-    add('Material', map['Material']);
-    add('Prazo', map['Prazo']);
-    add('Detalhes', document.getElementById('bMore').value);
-    return rows;
-  }
-
-  function buildText(rows) {
-    var t = 'Fala Frey, esse é o meu briefing:\n\nPlano: ' + curPlan;
-    if (chosenStyle === 'help') t += '\nEstilo: ainda não sei, me ajuda';
-    else if (chosenStyle) t += '\nEstilo: ' + chosenStyle;
-    rows.forEach(function (r) { t += '\n' + r[0] + ': ' + r[1]; });
-    return t;
-  }
-
-  function wrap(ctx, text, maxW) {
-    var words = text.split(' '), lines = [], cur = '';
-    words.forEach(function (w) {
-      var test = cur ? cur + ' ' + w : w;
-      if (ctx.measureText(test).width > maxW && cur) { lines.push(cur); cur = w; } else { cur = test; }
-    });
-    if (cur) lines.push(cur);
-    return lines;
-  }
-
-  function loadMascot() {
-    return new Promise(function (res) {
-      var v = getComputedStyle(document.documentElement).getPropertyValue('--mascot-full');
-      var m = /url\(\s*["']?([^"')]+)["']?\s*\)/.exec(v);
-      if (!m) return res(null);
-      var im = new Image(); im.onload = function () { res(im); }; im.onerror = function () { res(null); }; im.src = m[1].trim();
-    });
-  }
-
-  function draw(rows, mascot) {
-    var W = 1080, P = 72, FD = '"Bricolage Grotesque","Poppins","Segoe UI",Arial,sans-serif', FB = '"Instrument Sans","Inter",Arial,sans-serif', FM = '"JetBrains Mono","DejaVu Sans Mono",monospace';
-    var c = document.createElement('canvas'); c.width = W; c.height = 4000;
-    var x = c.getContext('2d');
-    function pass(doDraw) {
-      var y = P;
-      if (doDraw) { x.fillStyle = '#08080A'; x.fillRect(0, 0, W, c.height); }
-      x.textBaseline = 'alphabetic';
-      x.font = '500 24px ' + FM; if (doDraw) { x.fillStyle = '#8E8E96'; x.fillText('FREY.MOTION', P, y + 24); }
-      var mw = 190;
-      if (mascot && doDraw) x.drawImage(mascot, W - P - mw, y - 10, mw, mw * mascot.height / mascot.width);
-      y += 130;
-      x.font = '800 78px ' + FD; if (doDraw) { x.fillStyle = '#F4F4F5'; x.fillText('Ficha de', P, y); x.fillText('briefing', P, y + 84); }
-      y += 84 + 70;
-      var items = [['Plano', curPlan]];
-      if (chosenStyle) items.push(['Estilo', chosenStyle === 'help' ? 'Ainda não sei, me ajuda' : chosenStyle]);
-      items = items.concat(rows);
-      items.forEach(function (it, i) {
-        x.font = '500 22px ' + FM; if (doDraw) { x.fillStyle = '#8E8E96'; x.fillText(it[0].toUpperCase(), P, y); }
-        y += 16;
-        var big = i === 0;
-        x.font = (big ? '800 54px ' + FD : '500 36px ' + FB);
-        var lines = wrap(x, it[1], W - 2 * P - (it[0] === 'Estilo' ? 40 : 0));
-        var lh = big ? 62 : 48;
-        lines.forEach(function (ln, j) {
-          y += lh;
-          if (doDraw) {
-            var tx = P;
-            if (it[0] === 'Estilo' && j === 0 && COLORS[chosenStyle]) { x.fillStyle = COLORS[chosenStyle]; x.beginPath(); x.arc(P + 10, y - 13, 10, 0, 7); x.fill(); tx = P + 40; }
-            else if (it[0] === 'Estilo' && COLORS[chosenStyle]) tx = P + 40;
-            x.fillStyle = '#F4F4F5'; x.fillText(ln, tx, y);
-          }
-        });
-        y += 34;
-        if (doDraw && i < items.length - 1) { x.fillStyle = '#242429'; x.fillRect(P, y - 12, W - 2 * P, 2); }
-        y += 18;
-      });
-      y += 10;
-      x.font = '500 24px ' + FM; if (doDraw) { x.fillStyle = '#8E8E96'; x.fillText('Manda pro @frey.motion', P, y + 24); }
-      return y + 24 + P;
-    }
-    var H = pass(false);
-    c.height = H; x = c.getContext('2d');
-    pass(true);
-    return c;
-  }
-
-  document.getElementById('bProd').addEventListener('input', function () { errEl.hidden = true; });
-  gen.addEventListener('click', function () {
-    errEl.hidden = true;
-    if (!document.getElementById('bProd').value.trim()) {
-      errEl.textContent = 'Conta rapidinho o que você vende.'; errEl.hidden = false; document.getElementById('bProd').focus(); return;
-    }
-    var rows = collect();
-    textOut = buildText(rows);
-    var fonts = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
-    Promise.all([fonts, loadMascot()]).then(function (r) {
-      var c = draw(rows, r[1]);
-      c.toBlob(function (blob) {
-        if (!blob) { errEl.textContent = 'Não consegui gerar a imagem. Use "Copiar texto".'; errEl.hidden = false; return; }
-        file = new File([blob], 'ficha-frey.png', { type: 'image/png' });
-        img.src = URL.createObjectURL(blob);
-        out.hidden = false;
-        var canShare = navigator.canShare && navigator.canShare({ files: [file] });
-        document.getElementById('bShare').textContent = canShare ? 'Mandar pro Frey' : 'Baixar e abrir o Instagram';
-        note.textContent = canShare
-          ? 'Toque em "Mandar pro Frey", escolha o Instagram e me envie. A ficha vai junto com o texto.'
-          : 'A imagem é baixada e o Instagram abre. Anexe a ficha na conversa, ou use "Copiar texto".';
-        out.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }, 'image/png');
-    });
-  });
-
-  function download() {
-    if (!file) return;
-    var a = document.createElement('a'); a.href = URL.createObjectURL(file); a.download = 'ficha-frey.png';
-    document.body.appendChild(a); a.click(); document.body.removeChild(a);
-  }
-  document.getElementById('bSave').addEventListener('click', download);
-  document.getElementById('bShare').addEventListener('click', function () {
-    if (!file) return;
-    if (navigator.canShare && navigator.canShare({ files: [file] })) {
-      navigator.share({ files: [file], text: textOut }).catch(function () {});
-    } else {
-      download();
-      try { navigator.clipboard.writeText(textOut); } catch (e) {}
-      window.open('https://ig.me/m/frey.motion', '_blank', 'noopener');
-    }
-  });
-  document.getElementById('bCopy').addEventListener('click', function () {
-    var btn = this, old = btn.textContent;
-    function done() { btn.textContent = 'Copiado'; setTimeout(function () { btn.textContent = old; }, 1600); }
-    try { navigator.clipboard.writeText(textOut).then(done, function () { btn.textContent = 'Selecione e copie'; }); } catch (e) { btn.textContent = 'Selecione e copie'; }
-  });
 })();
 
 /* v2: progresso, spotlight, reveal, botão fixo, plano padrão */
