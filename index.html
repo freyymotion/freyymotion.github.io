@@ -48,7 +48,7 @@
   --accent: #9B7BFF;
   --font-display: 'Bricolage Grotesque', 'Segoe UI', system-ui, sans-serif;
   --font-body: 'Instrument Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-hand: 'Caveat Brush', 'Segoe Print', cursive;
+  --font-hand: 'Caveat Brush', 'Bradley Hand', 'Segoe Print', 'Comic Sans MS', cursive;
   --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
   color-scheme: dark;
 }
@@ -205,6 +205,7 @@ h2 .scrib path { stroke-width: 3; }
 .fc-t { color: var(--muted); font-size: .9375rem; }
 .fc-b { justify-self: start; margin-top: 8px; padding: 10px 18px; border-radius: 8px; background: var(--fg); color: var(--bg); font-weight: 600; }
 .ficha-cta:hover .fc-b { background: var(--accent); }
+.note a, .foot a { display: inline-block; padding: 14px 6px; margin: -14px -2px; }
 /* v3: textura e estrelas sutis */
 
 .star { position: absolute; pointer-events: none; z-index: 0; animation: spin 90s linear infinite; }
@@ -450,7 +451,7 @@ textarea.inp { resize: vertical; min-height: 84px; }
     <nav class="nav" aria-label="Seções">
       <a href="#portfolio">Portfólio</a>
       <a href="#sobre">Sobre</a>
-      <a href="/guia/">Como pedir</a>
+      <a href="guia/">Como pedir</a>
       <a href="#investimento">Investimento</a>
       <a href="#duvidas">Dúvidas</a>
     </nav>
@@ -582,7 +583,7 @@ textarea.inp { resize: vertical; min-height: 84px; }
           <span class="pick"></span>
         </button>
       </div>
-      <p class="note">*Valores base com material enviado. Projetos complexos sob consulta. <a href="/guia/">Como pedir</a>.</p>
+      <p class="note">*Valores base com material enviado. Projetos complexos sob consulta. <a href="guia/">Como pedir</a>.</p>
 
       <div class="send" id="send">
         <p class="hint" id="sendHint">Toque em um plano para escolher onde mandar a mensagem.</p>
@@ -592,7 +593,7 @@ textarea.inp { resize: vertical; min-height: 84px; }
             <span class="step-h">Qual estilo você mais gostou?</span>
             <div class="chips" id="chips"></div>
           </div>
-          <a class="ficha-cta" href="/guia/#ficha" id="fichaLink"><span class="fc-h">Quer adiantar?</span><span class="fc-t">Preencha a ficha em 1 minuto e já me mande tudo pronto.</span><span class="fc-b">Preencher a ficha</span></a>
+          <a class="ficha-cta" href="guia/#ficha" id="fichaLink"><span class="fc-h">Quer adiantar?</span><span class="fc-t">Preencha a ficha em 1 minuto e já me mande tudo pronto.</span><span class="fc-b">Preencher a ficha</span></a>
           <p class="msg" id="sendMsg" style="margin-top:12px"></p>
           <div class="cta">
             <a class="btn btn-primary" id="sendWa" href="#investimento">Mandar no WhatsApp</a>
@@ -657,14 +658,14 @@ textarea.inp { resize: vertical; min-height: 84px; }
       <p class="lede">Me chama e já abre com a mensagem pronta: "Fala Frey, quero um ad pra [meu produto]".</p>
       <div class="cta">
         <a class="btn btn-primary" href="https://ig.me/m/frey.motion" target="_blank" rel="noopener">Chamar no Instagram</a>
-        <a class="btn" href="/guia/">Como pedir</a>
+        <a class="btn" href="guia/">Como pedir</a>
       </div>
     </div>
   </section>
 </main>
 
 <footer class="foot">
-  <div class="wrap">© 2026 FREY.MOTION · <a href="/guia/">Como pedir</a></div>
+  <div class="wrap">© 2026 FREY.MOTION · <a href="guia/">Como pedir</a></div>
 </footer>
 
 <div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="mtitle">
@@ -925,7 +926,7 @@ function pickPlan(name, msg, styled) {
     b.setAttribute('aria-pressed', b.getAttribute('data-plan') === name ? 'true' : 'false');
   });
   sendTitle.textContent = name + ': onde você quer mandar a mensagem?';
-  var fl = document.getElementById('fichaLink'); if (fl) fl.href = '/guia/?plano=' + encodeURIComponent(name) + '#ficha';
+  var fl = document.getElementById('fichaLink'); if (fl) fl.href = 'guia/?plano=' + encodeURIComponent(name) + '#ficha';
   sendMsg.textContent = currentMsg;
   copiedEl.textContent = '';
   if (WHATS) {
