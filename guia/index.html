@@ -71,7 +71,7 @@ textarea.inp { resize: vertical; min-height: 84px; }
 .chip[data-s="Flygo"] { --c: #FFC93C; }
 .chip[data-s="Parapy"] { --c: #3DDC84; }
 .chip[data-s="AERO"] { --c: #6EC6FF; }
-.chip[data-s="VYRO"] { --c: #A66BFF; }
+.chip[data-s="VYRO"], .chip[data-s="ZUNGO"] { --c: #A66BFF; }
 :root[data-theme="light"] .chip[data-s="FocusMode"] { --c: #7BAA10; }
 :root[data-theme="light"] .chip[data-s="Parapy"] { --c: #1E9E56; }
 :root[data-theme="light"] .chip[data-s="AERO"] { --c: #2A8FD1; }
@@ -173,7 +173,7 @@ html.sh-lock,html.sh-lock body{overflow:hidden}
 </main>
 <footer><div class="w">FREY.MOTION. Anúncios em vídeo para Reels e TikTok.</div></footer>
 <script>
-var PROJECTS=['Nova','Vanta','FocusMode','Flygo','Parapy','AERO'];
+var PROJECTS=['Nova','Vanta','FocusMode','Flygo','Parapy','AERO','ZUNGO'];
 var curPlan='',curStyled=false,chosenStyle='';
 var planPick=document.getElementById('planPick'),sendBody=document.getElementById('sendBody'),sendHint=document.getElementById('sendHint');
 var stylesEl=document.getElementById('styles'),chipsEl=document.getElementById('chips');
@@ -190,7 +190,7 @@ planPick.addEventListener('click',function(e){var b=e.target.closest('.opt');if(
 (function () {
   var brief = document.getElementById('brief');
   if (!brief) return;
-  var COLORS = { VYRO: '#A66BFF', Nova: '#4D7CFF', Vanta: '#19B38A', FocusMode: '#B6F23A', Flygo: '#FFC93C', Parapy: '#3DDC84', AERO: '#6EC6FF' };
+  var COLORS = { VYRO: '#A66BFF', ZUNGO: '#A66BFF', Nova: '#4D7CFF', Vanta: '#19B38A', FocusMode: '#B6F23A', Flygo: '#FFC93C', Parapy: '#3DDC84', AERO: '#6EC6FF' };
   var file = null, textOut = '';
   var gen = document.getElementById('bGen'), errEl = document.getElementById('bErr');
   var out = document.getElementById('bOut'), img = document.getElementById('bImg'), note = document.getElementById('bNote');
