@@ -233,6 +233,9 @@ html.sh-lock,html.sh-lock body{overflow:hidden}
 .sheet .fl{font-weight:600}
 .sheet .step-h{display:block}
 
+
+.sheet .bout .cta .btn { flex: 1 1 40%; min-height: 48px; }
+.sheet .bout .cta .btn-primary { flex: 1 1 100%; min-height: 52px; }
 /* v3: textura e estrelas sutis */
 
 .star { position: absolute; pointer-events: none; z-index: 0; animation: spin 90s linear infinite; }
@@ -702,10 +705,10 @@ textarea.inp { resize: vertical; min-height: 84px; }
           </div></div></div>
     <div class="brief sh-fields" id="brief" data-simple="1">
             
-            <label class="f"><span class="fl">O que você vende?</span><input class="inp" id="bProd" type="text" maxlength="120" autocomplete="off" placeholder="Ex.: comunidade de Discord, app, infoproduto"></label>
+            <label class="f"><span class="fl">O que você vende?</span><input class="inp" id="bProd" type="text" maxlength="120" autocomplete="off" placeholder="Ex.: app, comunidade, infoproduto"></label>
             <div class="f" data-key="Postar em" data-multi="1"><span class="fl">Onde vai postar?</span><div class="opts"><button class="opt" type="button" aria-pressed="false">Reels</button><button class="opt" type="button" aria-pressed="false">TikTok</button></div></div>
             <div class="f g-ad" data-key="Objetivo"><span class="fl">Qual o objetivo?</span><div class="opts"><button class="opt" type="button" aria-pressed="false">Vender</button><button class="opt" type="button" aria-pressed="false">Captar membros</button><button class="opt" type="button" aria-pressed="false">Baixar app</button><button class="opt" type="button" aria-pressed="false">Divulgar a marca</button></div></div>
-            <label class="f g-ad"><span class="fl">Quem é o público?</span><input class="inp" id="bPub" type="text" maxlength="100" autocomplete="off" placeholder="Ex.: gamers, empreendedores, estudantes"></label>
+            <label class="f g-ad"><span class="fl">Quem é o público?</span><input class="inp" id="bPub" type="text" maxlength="100" autocomplete="off" placeholder="Ex.: gamers, estudantes"></label>
             <div class="f g-ad" data-key="Tom"><span class="fl">Qual o tom do vídeo?</span><div class="opts"><button class="opt" type="button" aria-pressed="false">Direto</button><button class="opt" type="button" aria-pressed="false">Engraçado</button><button class="opt" type="button" aria-pressed="false">Sério</button><button class="opt" type="button" aria-pressed="false">Ousado</button></div></div>
             <div class="f" data-key="Material"><span class="fl">Tem logo, cores ou material pra mandar?</span><div class="opts"><button class="opt" type="button" aria-pressed="false">Tenho logo e material</button><button class="opt" type="button" aria-pressed="false">Ainda não tenho</button></div></div>
             <div class="f" data-key="Prazo"><span class="fl">Tem prazo?</span><div class="opts"><button class="opt" type="button" aria-pressed="false">Sem pressa</button><button class="opt" type="button" aria-pressed="false">Tenho uma data</button></div></div>
@@ -1339,7 +1342,7 @@ planPick.addEventListener('click',function(e){var b=e.target.closest('.opt');if(
   var T=['Escolha o plano e o estilo','Conte sobre o seu vídeo','Últimos detalhes','Sua ficha está pronta'];
   var step=1,lastFocus=null,html=document.documentElement;
   var fields=Array.prototype.slice.call(brief.children).filter(function(n){return n.classList.contains('f');});
-  fields.forEach(function(f,i){f.setAttribute('data-st',i<5?'2':'3');});
+  fields.forEach(function(f,i){f.setAttribute('data-st',i<4?'2':'3');});
   var sh1=document.querySelector('.sh-step[data-step="1"]'),sh4=document.querySelector('.sh-step[data-step="4"]');
   var next=document.getElementById('shNext'),prev=document.getElementById('shBack1'),errEl=document.getElementById('bErr'),foot=document.getElementById('shFoot');
   function render(){
