@@ -195,6 +195,10 @@ h2 .scrib path { stroke-width: 3; }
 .badge { top: -15px; right: 14px; padding: 0; background: none; color: var(--accent); font: 400 1.5rem/1 var(--font-hand); letter-spacing: 0; text-transform: none; transform: rotate(-5deg); }
 .badge::after { content: ""; display: block; height: 3px; margin-top: 2px; border-radius: 3px; background: var(--accent); transform: rotate(1deg); opacity: .8; }
 .sec-sub, .step-s { max-width: 58ch; }
+
+/* v7: menos cara de template */
+#sendWa { display: none !important; }
+.plan .from, .sty em, .step-n, .count { font-family: var(--font-body); text-transform: none; letter-spacing: 0; }
 /* v3: textura e estrelas sutis */
 
 .star { position: absolute; pointer-events: none; z-index: 0; animation: spin 90s linear infinite; }
@@ -440,7 +444,7 @@ textarea.inp { resize: vertical; min-height: 84px; }
     <nav class="nav" aria-label="Seções">
       <a href="#portfolio">Portfólio</a>
       <a href="#sobre">Sobre</a>
-      <a href="#como">Como funciona</a>
+      <a href="/guia/">Como pedir</a>
       <a href="#investimento">Investimento</a>
       <a href="#duvidas">Dúvidas</a>
     </nav>
@@ -512,18 +516,10 @@ textarea.inp { resize: vertical; min-height: 84px; }
     <div class="wrap about">
       <div class="about-main">
         <h2>Sou o João, FREY.</h2>
-        <div class="stats">
-          <div class="stat c-blue"><span class="big">4</span><span class="lbl">anos de edição</span></div>
-          <div class="stat c-violet"><span class="big">1</span><span class="lbl">ano focado em motion design</span></div>
-        </div>
+        
         <div class="about-text">
-          <p class="lead">Crio anúncios completos: roteiro, locução, animação e legendas.</p>
-          <ul class="deliver" aria-label="O que vem no anúncio">
-            <li class="c-blue">Roteiro</li>
-            <li class="c-red">Locução</li>
-            <li class="c-purple">Animação</li>
-            <li class="c-violet">Legendas</li>
-          </ul>
+          <p class="lead">Edito há 4 anos, e há 1 trabalho focado em motion design. Crio anúncios completos: roteiro, locução, animação e legendas.</p>
+          
           <p>Você me manda o produto. Eu te entrego o anúncio pronto pra postar.</p>
         </div>
       </div>
@@ -540,18 +536,9 @@ textarea.inp { resize: vertical; min-height: 84px; }
     </div>
   </section>
 
-  <div class="bridge"><a href="#como">Quer um desses pro seu produto? Veja como funciona</a></div>
+  
 
-  <section id="como">
-    <div class="wrap">
-      <h2 style="margin-top:12px">Do briefing ao anúncio no ar</h2>
-      <ol class="steps">
-        <li class="c-blue"><span class="step-n">Passo 1</span><div><h3>Briefing</h3><p>Você me manda o que vende e escolhe, entre os meus vídeos, o estilo que mais gostou. Um áudio de 1 minuto já resolve.</p></div></li>
-        <li class="c-red"><span class="step-n">Passo 2</span><div><h3>Criação</h3><p>Eu crio roteiro, voz e motion. 1 ad em 3-4 dias úteis.</p></div></li>
-        <li class="c-purple"><span class="step-n">Passo 3</span><div><h3>Ajuste</h3><p>O Pack 3 Ads inclui 1 ajuste fino por vídeo (cor, texto ou tempo). Nos outros planos, cada ajuste custa R$50.</p></div></li>
-      </ol>
-    </div>
-  </section>
+  
 
   <div class="bridge"><a href="#investimento">Agora a pergunta que importa: quanto custa?</a></div>
 
@@ -599,7 +586,7 @@ textarea.inp { resize: vertical; min-height: 84px; }
             <span class="step-h">Qual estilo você mais gostou?</span>
             <div class="chips" id="chips"></div>
           </div>
-          <p class="hint">Quer adiantar? <a href="/guia/#ficha">Preencha a ficha de briefing</a> e me mande pelo Instagram.</p>
+          <p class="hint">Quer adiantar? <a href="/guia/#ficha" id="fichaLink">Preencha a ficha de briefing</a> e me mande pelo Instagram.</p>
           <p class="msg" id="sendMsg" style="margin-top:12px"></p>
           <div class="cta">
             <a class="btn btn-primary" id="sendWa" href="#investimento">Mandar no WhatsApp</a>
@@ -663,8 +650,8 @@ textarea.inp { resize: vertical; min-height: 84px; }
       <h2 style="margin-top:12px;max-width:16ch">Bora fazer seu anúncio?</h2>
       <p class="lede">Me chama e já abre com a mensagem pronta: "Fala Frey, quero um ad pra [meu produto]".</p>
       <div class="cta">
-        <a class="btn btn-primary" data-wa href="#contato">Chamar no WhatsApp</a>
-        <a class="btn" href="https://instagram.com/frey.motion" target="_blank" rel="noopener">Instagram @frey.motion ↗</a>
+        <a class="btn btn-primary" href="https://ig.me/m/frey.motion" target="_blank" rel="noopener">Chamar no Instagram</a>
+        <a class="btn" href="/guia/">Como pedir</a>
       </div>
     </div>
   </section>
@@ -733,7 +720,7 @@ function cardHtml(p, i, live) {
     '<div class="poster"' + (p.img ? ' style="background-image:url(' + p.img + ')"' : '') + '><span class="play" aria-hidden="true"></span></div>' +
     '<div class="card-body"><span class="num">' + p.n + '</span><h3>' + p.title + '</h3>' +
     (p.focus ? '<p>' + p.focus + '</p>' : '') +
-    (p.focus ? '<span class="spec">Spec ad</span>' : '') + '</div></button>';
+    '' + '</div></button>';
 }
 
 function render(copies) {
@@ -932,6 +919,7 @@ function pickPlan(name, msg, styled) {
     b.setAttribute('aria-pressed', b.getAttribute('data-plan') === name ? 'true' : 'false');
   });
   sendTitle.textContent = name + ': onde você quer mandar a mensagem?';
+  var fl = document.getElementById('fichaLink'); if (fl) fl.href = '/guia/?plano=' + encodeURIComponent(name) + '#ficha';
   sendMsg.textContent = currentMsg;
   copiedEl.textContent = '';
   if (WHATS) {

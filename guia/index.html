@@ -82,6 +82,26 @@ textarea.inp { resize: vertical; min-height: 84px; }
 .chip[data-s="help"][aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
 .copied { font: 500 0.75rem var(--font-mono); color: var(--muted); }
 .second{margin-left:4px}.pickrow{margin-top:18px}.send{margin-top:18px}
+
+.sh-back{position:fixed;inset:0;z-index:100;background:rgba(8,8,10,.55);-webkit-backdrop-filter:blur(16px) saturate(.8);backdrop-filter:blur(16px) saturate(.8);opacity:0;transition:opacity .25s}
+.sh-back.on{opacity:1}
+.sheet{position:fixed;z-index:101;left:0;right:0;bottom:0;max-height:92vh;max-height:92dvh;display:flex;flex-direction:column;background:#111114;border:1px solid var(--line);border-bottom:0;border-radius:22px 22px 0 0;box-shadow:0 -20px 80px -20px rgba(155,123,255,.28);transform:translateY(100%);transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.sheet[hidden],.sh-back[hidden]{display:none}.sheet{overflow:hidden}.sheet.on{transform:none}
+@media(min-width:700px){.sheet{left:50%;right:auto;bottom:auto;top:50%;width:560px;max-height:86vh;border-bottom:1px solid var(--line);border-radius:22px;transform:translate(-50%,-44%);opacity:0;transition:transform .3s cubic-bezier(.2,.8,.2,1),opacity .25s}.sheet.on{transform:translate(-50%,-50%);opacity:1}}
+.sh-top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 20px 0}
+.sh-prog{display:flex;gap:6px;flex:1;max-width:220px}.sh-prog i{flex:1;height:4px;border-radius:4px;background:var(--line);transition:background .3s}.sh-prog i.on{background:var(--accent)}
+.sh-x{background:none;border:0;color:var(--muted);font:inherit;padding:10px 0 10px 10px;cursor:pointer}.sh-x:hover{color:var(--fg)}
+.sh-body{overflow-y:auto;overscroll-behavior:contain;padding:18px 20px 8px;display:grid;gap:18px;align-content:start}
+.sh-body h3{font:800 1.5rem/1.15 'Bricolage Grotesque',sans-serif;letter-spacing:-.02em;margin:0}
+.sh-body .hand{margin:0}
+.sh-step[hidden],.sh-fields .f[hidden],.sh-body>[hidden]{display:none}
+.sheet .opt,.sheet .chip{min-height:48px;font-size:1rem}.sheet .opt{padding:0 20px}
+.sheet .inp{min-height:52px;font-size:1rem}
+.sh-foot{padding:12px 20px calc(16px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line);display:grid;gap:8px;background:#111114}
+.sh-btns{display:flex;gap:10px}.sh-btns .btn{flex:1;min-height:52px}.sh-btns .btn-primary{flex:2}
+.sh-foot .hint{color:#FF8A8A;margin:0}
+html.sh-lock,html.sh-lock body{overflow:hidden}
+@media(prefers-reduced-motion:reduce){.sheet,.sh-back{transition:none}}
 </style></head><body>
 <header><div class="w"><a class="brand" href="/"><i role="img" aria-label="Mascote FREY"></i><span>FREY<b>.</b>MOTION</span></a><a class="back" href="/">Voltar pro site</a></div></header>
 <main class="w">
@@ -110,15 +130,20 @@ textarea.inp { resize: vertical; min-height: 84px; }
 <p class="muted" style="margin-top:16px">Ajuste extra: R$50. Pagamento por Pix, metade no início e metade na entrega, ou tudo de uma vez. Projetos complexos sob consulta.</p></section>
 
 <section id="ficha"><span class="hand">sua vez</span><h2>Preencha a ficha</h2>
-<p class="muted">Responda rapidinho e mande pra mim no Instagram. As respostas ficam no seu aparelho até você enviar.</p>
-<div class="f pickrow"><span class="fl">Qual plano?</span><div class="opts" id="planPick"><button class="opt" type="button" data-plan="Ad simples" data-styles="0" aria-pressed="false">Ad simples</button><button class="opt" type="button" data-plan="Ad Único" data-styles="1" aria-pressed="false">Ad Único</button><button class="opt" type="button" data-plan="Pack 3 Ads" data-styles="1" aria-pressed="false">Pack 3 Ads</button></div></div>
-<div class="send" id="send"><p class="hint" id="sendHint">Escolha um plano pra começar.</p><div id="sendBody" hidden><div class="styles" id="styles" role="group" aria-label="Estilo do vídeo">
-            <span class="step-h"><b>01</b>Qual estilo você mais gostou?</span>
+<p class="muted">São 3 passos rápidos. No final eu gero uma imagem com as suas respostas e você manda pra mim no Instagram. Nada sai do seu aparelho até você enviar.</p>
+<p style="margin-top:20px"><button class="btn btn-primary" id="openFicha" type="button">Preencher a ficha</button></p></section>
+
+<div class="sh-back" id="shBack" hidden></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="shT" hidden>
+  <div class="sh-top"><div class="sh-prog" id="shProg" aria-hidden="true"><i></i><i></i><i></i><i></i></div><button class="sh-x" id="shX" type="button">Fechar</button></div>
+  <div class="sh-body" id="shBody">
+    <span class="hand" id="shK"></span><h3 id="shT"></h3>
+    <div class="sh-step" data-step="1"><div class="f"><span class="fl">Qual plano?</span><div class="opts" id="planPick"><button class="opt" type="button" data-plan="Ad simples" data-styles="0" aria-pressed="false">Ad simples</button><button class="opt" type="button" data-plan="Ad Único" data-styles="1" aria-pressed="false">Ad Único</button><button class="opt" type="button" data-plan="Pack 3 Ads" data-styles="1" aria-pressed="false">Pack 3 Ads</button></div></div><p id="sendHint" hidden></p><div id="sendBody" hidden><div class="styles" id="styles" role="group" aria-label="Estilo do vídeo">
+            <span class="fl">Qual estilo você mais gostou?</span>
             <div class="chips" id="chips"></div>
-          </div>
-          <div class="brief" id="brief">
-            <span class="step-h"><b>02</b>Conte sobre o seu vídeo</span>
-            <p class="step-s">Perguntas rápidas. As respostas ficam no seu aparelho. Só chegam até mim se você enviar a ficha.</p>
+          </div></div></div>
+    <div class="brief sh-fields" id="brief" data-simple="1">
+            
             <label class="f"><span class="fl">O que você vende?</span><input class="inp" id="bProd" type="text" maxlength="120" autocomplete="off" placeholder="Ex.: comunidade de Discord, app, infoproduto"></label>
             <div class="f" data-key="Postar em" data-multi="1"><span class="fl">Onde vai postar?</span><div class="opts"><button class="opt" type="button" aria-pressed="false">Reels</button><button class="opt" type="button" aria-pressed="false">TikTok</button></div></div>
             <div class="f g-ad" data-key="Objetivo"><span class="fl">Qual o objetivo?</span><div class="opts"><button class="opt" type="button" aria-pressed="false">Vender</button><button class="opt" type="button" aria-pressed="false">Captar membros</button><button class="opt" type="button" aria-pressed="false">Baixar app</button><button class="opt" type="button" aria-pressed="false">Divulgar a marca</button></div></div>
@@ -127,9 +152,8 @@ textarea.inp { resize: vertical; min-height: 84px; }
             <div class="f" data-key="Material"><span class="fl">Tem logo, cores ou material pra mandar?</span><div class="opts"><button class="opt" type="button" aria-pressed="false">Tenho logo e material</button><button class="opt" type="button" aria-pressed="false">Ainda não tenho</button></div></div>
             <div class="f" data-key="Prazo"><span class="fl">Tem prazo?</span><div class="opts"><button class="opt" type="button" aria-pressed="false">Sem pressa</button><button class="opt" type="button" aria-pressed="false">Tenho uma data</button></div></div>
             <label class="f"><span class="fl">Algo mais que eu precise saber? (opcional)</span><textarea class="inp" id="bMore" rows="3" maxlength="300" placeholder="Referência, ideia, link..."></textarea></label>
-            <button class="btn btn-primary" id="bGen" type="button">Gerar minha ficha</button>
-            <p class="hint" id="bErr" role="alert" hidden></p>
-            <div class="bout" id="bOut" hidden>
+            </div>
+    <div class="sh-step" data-step="4"><div class="bout" id="bOut" hidden>
               <img id="bImg" alt="Ficha de briefing com as suas respostas">
               <div class="cta">
                 <button class="btn btn-primary" id="bShare" type="button">Mandar pro Frey</button>
@@ -137,9 +161,11 @@ textarea.inp { resize: vertical; min-height: 84px; }
                 <button class="btn" id="bCopy" type="button">Copiar texto</button>
               </div>
               <p class="hint" id="bNote"></p>
-            </div>
-          </div>
-          </div></div></section>
+            </div></div>
+    <button id="bGen" type="button" hidden>gerar</button>
+  </div>
+  <div class="sh-foot" id="shFoot"><p class="hint" id="bErr" role="alert" hidden></p><div class="sh-btns"><button class="btn" id="shBack1" type="button">Voltar</button><button class="btn btn-primary" id="shNext" type="button">Continuar</button></div></div>
+</div>
 
 <section><span class="hand">ou, se preferir</span><h2>Chamar direto</h2>
 <p>Prefere conversar sem ficha? Me chame no Instagram com o plano e as informações acima. Eu respondo por lá.</p>
@@ -324,5 +350,46 @@ planPick.addEventListener('click',function(e){var b=e.target.closest('.opt');if(
 })();
 
 
+
+/* v8: ficha em aba focada */
+(function(){
+  var sheet=document.getElementById('sheet'),back=document.getElementById('shBack'),brief=document.getElementById('brief');
+  var K=['passo 1 de 3','passo 2 de 3','passo 3 de 3','pronto'];
+  var T=['Escolha o plano e o estilo','Conte sobre o seu vídeo','Últimos detalhes','Sua ficha está pronta'];
+  var step=1,lastFocus=null,html=document.documentElement;
+  var fields=Array.prototype.slice.call(brief.children).filter(function(n){return n.classList.contains('f');});
+  fields.forEach(function(f,i){f.setAttribute('data-st',i<5?'2':'3');});
+  var sh1=document.querySelector('.sh-step[data-step="1"]'),sh4=document.querySelector('.sh-step[data-step="4"]');
+  var next=document.getElementById('shNext'),prev=document.getElementById('shBack1'),errEl=document.getElementById('bErr'),foot=document.getElementById('shFoot');
+  function render(){
+    sh1.hidden=step!==1;sh4.hidden=step!==4;brief.hidden=!(step===2||step===3);
+    fields.forEach(function(f){f.hidden=f.getAttribute('data-st')!==String(step);});
+    document.getElementById('shK').textContent=K[step-1];document.getElementById('shT').textContent=T[step-1];
+    Array.prototype.forEach.call(document.getElementById('shProg').children,function(d,i){d.className=i<step?'on':'';});
+    foot.hidden=step===4;prev.style.visibility=step===1?'hidden':'visible';
+    next.textContent=step===3?'Gerar minha ficha':'Continuar';errEl.hidden=true;
+    document.getElementById('shBody').scrollTop=0;
+  }
+  function open(){lastFocus=document.activeElement;step=1;render();back.hidden=false;sheet.hidden=false;html.classList.add('sh-lock');
+    requestAnimationFrame(function(){back.classList.add('on');sheet.classList.add('on');});
+    setTimeout(function(){var f=sheet.querySelector('.opt,.inp');if(f)f.focus({preventScroll:true});},350);}
+  function close(){back.classList.remove('on');sheet.classList.remove('on');html.classList.remove('sh-lock');
+    setTimeout(function(){back.hidden=true;sheet.hidden=true;},320);if(lastFocus&&lastFocus.focus)lastFocus.focus();}
+  function err(m){errEl.textContent=m;errEl.hidden=false;}
+  next.addEventListener('click',function(){
+    if(step===1){if(!curPlan)return err('Escolha um plano pra continuar.');step=2;render();return;}
+    if(step===2){if(!document.getElementById('bProd').value.trim())return err('Conte rapidinho o que você vende.');step=3;render();return;}
+    if(step===3){document.getElementById('bGen').click();}
+  });
+  prev.addEventListener('click',function(){if(step>1){step--;render();}});
+  document.getElementById('shX').addEventListener('click',close);back.addEventListener('click',close);
+  document.addEventListener('keydown',function(e){if(sheet.hidden)return;if(e.key==='Escape')close();
+    if(e.key==='Tab'){var f=sheet.querySelectorAll('button:not([hidden]):not([disabled]),input,textarea');f=Array.prototype.filter.call(f,function(x){return x.offsetParent!==null;});if(!f.length)return;var a=f[0],z=f[f.length-1];
+      if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus();}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus();}}});
+  new MutationObserver(function(){if(!document.getElementById('bOut').hidden){step=4;render();}}).observe(document.getElementById('bOut'),{attributes:true,attributeFilter:['hidden']});
+  document.getElementById('openFicha').addEventListener('click',open);
+  if(location.hash==='#ficha'||/[?&]plano=/.test(location.search))setTimeout(open,200);
+  render();sheet.hidden=true;
+})();
 </script>
 </body></html>
