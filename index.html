@@ -1057,7 +1057,8 @@ document.getElementById('sendCopy').addEventListener('click', function () {
     var heroOut = false, invIn = false;
     function upd() { st.classList.toggle('off', !(heroOut && !invIn)); }
     if ('IntersectionObserver' in window) {
-      new IntersectionObserver(function (es) { heroOut = !es[0].isIntersecting; upd(); }).observe(hero);
+      var rot = document.getElementById('roteiro') || hero;
+      new IntersectionObserver(function (es) { heroOut = !es[0].isIntersecting && es[0].boundingClientRect.bottom < 0; upd(); }).observe(rot);
       new IntersectionObserver(function (es) { invIn = es[0].isIntersecting; upd(); }, { threshold: 0.05 }).observe(inv);
     }
   }
