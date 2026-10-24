@@ -513,6 +513,42 @@ textarea.inp { resize: vertical; min-height: 84px; }
 #investimento .send { background: color-mix(in srgb, var(--bg) 82%, var(--violet)); border-color: color-mix(in srgb, var(--violet) 30%, var(--line)); }
 #investimento .sec-sub, #investimento .note { color: color-mix(in srgb, var(--fg) 72%, var(--violet)); }
 #investimento .orb { opacity: .25; }
+
+/* painel de preços mais escuro, planos em destaque */
+#investimento { background: color-mix(in srgb, var(--violet) 7%, var(--bg)); border-block-color: color-mix(in srgb, var(--violet) 25%, var(--bg)); }
+#investimento .plan { background: color-mix(in srgb, var(--violet) 16%, var(--surface)); border-color: color-mix(in srgb, var(--violet) 40%, var(--line)); }
+#investimento .send { background: color-mix(in srgb, var(--violet) 10%, var(--surface)); }
+
+/* roteiro passo a passo ao rolar */
+.js .story { overflow-x: clip; position: relative; height: calc(var(--n, 4) * 52vh + 48vh); }
+.js .story-pin { position: sticky; top: 64px; min-height: calc(100svh - 64px); display: grid; align-content: center; gap: 20px; padding-block: 16px; }
+.js .story .items { display: grid; margin: 0; padding: 0; overflow: visible; scroll-snap-type: none; border: 0; }
+.js .story .items > * { grid-area: 1 / 1; opacity: 0; transform: translateX(56px); pointer-events: none; transition: opacity .5s ease, transform .5s cubic-bezier(.2,.8,.2,1); }
+.js .story .items > .is-past { transform: translateX(-56px); }
+.js .story .items > .is-on { opacity: 1; transform: none; pointer-events: auto; }
+.js .story .scripts { margin-inline: 0; padding: 0; }
+.js .story .scripts .sc { width: min(100%, 520px); flex: none; }
+.js .story .rt li { border: 0; display: grid; grid-template-columns: 1fr; padding: 8px 0; align-self: center; }
+.js .story .rt li::before { font-size: 1rem; grid-row: auto; }
+.js .story .rt b { font-size: clamp(2rem, 9vw, 3.5rem); line-height: 1.05; }
+.js .story .rt em { grid-column: 1; font-size: 1.125rem; }
+.dots { display: none; justify-content: center; gap: 8px; }
+.js .dots { display: flex; }
+.dots i { width: 8px; height: 8px; border-radius: 50%; background: var(--line); transition: background .3s, transform .3s; }
+.dots i.on { background: var(--sc, var(--accent)); transform: scale(1.3); }
+@media (prefers-reduced-motion: reduce) { .js .story .items > * { transition: opacity .2s; transform: none !important; } }
+
+/* paralaxe leve nos brilhos */
+.orb { translate: 0 var(--py, 0px); will-change: translate; }
+
+/* botão de tema */
+.theme-btn { margin-left: auto; margin-right: 8px; width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--line); background: transparent; color: var(--fg); font-size: 1.05rem; line-height: 1; cursor: pointer; display: grid; place-items: center; }
+.theme-btn::before { content: "☾"; }
+:root[data-theme="light"] .theme-btn::before { content: "☀"; }
+.theme-btn:active { transform: scale(.92); }
+
+:root[data-theme="light"] .plan .badge { color: #3B22A8; background: color-mix(in srgb, var(--violet) 16%, #fff); }
+:root[data-theme="light"] .plan[aria-pressed="true"] .pick, :root[data-theme="light"] .anchor b { color: var(--violet); }
 </style>
 </head>
 <body>
@@ -530,6 +566,7 @@ textarea.inp { resize: vertical; min-height: 84px; }
       <a href="#investimento">Preços</a>
       <a href="#duvidas">Dúvidas</a>
     </nav>
+    <button class="theme-btn" id="themeBtn" type="button" aria-label="Trocar para tema claro"></button>
     <a class="btn btn-primary btn-sm" href="#contato">Contato</a>
   </div>
 </header>
@@ -569,17 +606,18 @@ textarea.inp { resize: vertical; min-height: 84px; }
 
   <section id="roteiro">
     <div class="wrap">
+      <div class="story" data-story><div class="story-pin">
       <h2 style="margin-top:12px">Um bom anúncio não começa na animação.</h2>
       <p class="sec-sub" style="margin-top:12px">Primeiro vem a ideia. Cada etapa do roteiro tem um propósito.</p>
-      <ol class="rt">
+      <ol class="rt items">
         <li><b>Capturar</b><em>A primeira frase faz a pessoa parar de rolar.</em></li>
         <li><b>Revelar</b><em>Aí sim aparece o nome do produto.</em></li>
         <li><b>Explicar</b><em>Uma frase, uma ideia, sem enrolar.</em></li>
         <li><b>Convencer</b><em>Responder a dúvida antes de ela virar desculpa.</em></li>
         <li><b>Marcar</b><em>Fechar com algo curto que a pessoa repete.</em></li>
-      </ol>
-      <p class="sc-hint">Meus projetos conceituais e dois exemplos inventados. Arraste pro lado.</p>
-      <div class="scripts" tabindex="0" aria-label="Exemplos de roteiro"><article class="sc c-lilac"><h3>ZUNGO</h3><span class="sc-s">projeto conceitual</span><p><i>Capturar</i>Seu pedido tá vindo, mas vindo de onde? App da loja, código, transportadora, nada.</p><p><i>Revelar</i>Conheça o ZUNGO.</p><p><i>Explicar</i>Todos os seus pedidos de lojas diferentes em um só lugar.</p><p><i>Convencer</i>Acompanhe as atualizações e saiba como seus pedidos estão avançando. Abriu, conferiu? Pronto.</p><p><i>Marcar</i>ZUNGO, seu pedido sem mistério.</p></article><article class="sc c-violet"><h3>VYRO</h3><span class="sc-s">projeto conceitual</span><p><i>Capturar</i>Você paga streaming, música, séries... tudo separado, e só usa dois?</p><p><i>Revelar</i>Conheça a VYRO!</p><p><i>Explicar</i>Reunimos as principais plataformas em um só lugar para você comparar planos e encontrar opções com preços mais acessíveis.</p><p><i>Convencer</i>Tudo de forma simples e transparente, sem fidelidade e sem custos adicionais. Você tem total controle e flexibilidade para escolher e cancelar quando quiser.</p><p><i>Marcar</i>VYRO. Suas assinaturas, por menos. Por que pagar mais, se você pode pagar menos?</p></article><article class="sc c-green"><h3>Café Prosa</h3><span class="sc-s">exemplo, produto inventado</span><p><i>Capturar</i>Seu café acabou de novo, e você nem lembrou de comprar?</p><p><i>Revelar</i>Conheça o Prosa.</p><p><i>Explicar</i>Todo mês, o café que você escolhe chega na sua porta, no dia certo.</p><p><i>Convencer</i>Pause, troque o sabor ou cancele quando quiser, sem multa.</p><p><i>Marcar</i>Prosa. Café na hora certa.</p></article><article class="sc c-sky"><h3>Pulso</h3><span class="sc-s">exemplo, produto inventado</span><p><i>Capturar</i>Você paga academia e vai... duas vezes por mês?</p><p><i>Revelar</i>Conheça o Pulso.</p><p><i>Explicar</i>Treinos de 15 minutos, em casa, sem aparelho.</p><p><i>Convencer</i>Você escolhe o dia, o foco e o tempo. Sem cobrança por falta.</p><p><i>Marcar</i>Pulso. Treino que cabe na sua semana.</p></article></div>
+      </ol><div class="dots" aria-hidden="true"></div></div></div>
+      <p class="sc-hint">Meus projetos conceituais e dois exemplos inventados. Role pra ver o próximo.</p>
+      <div class="story" data-story><div class="story-pin"><div class="scripts items" tabindex="0" aria-label="Exemplos de roteiro"><article class="sc c-lilac"><h3>ZUNGO</h3><span class="sc-s">projeto conceitual</span><p><i>Capturar</i>Seu pedido tá vindo, mas vindo de onde? App da loja, código, transportadora, nada.</p><p><i>Revelar</i>Conheça o ZUNGO.</p><p><i>Explicar</i>Todos os seus pedidos de lojas diferentes em um só lugar.</p><p><i>Convencer</i>Acompanhe as atualizações e saiba como seus pedidos estão avançando. Abriu, conferiu? Pronto.</p><p><i>Marcar</i>ZUNGO, seu pedido sem mistério.</p></article><article class="sc c-violet"><h3>VYRO</h3><span class="sc-s">projeto conceitual</span><p><i>Capturar</i>Você paga streaming, música, séries... tudo separado, e só usa dois?</p><p><i>Revelar</i>Conheça a VYRO!</p><p><i>Explicar</i>Reunimos as principais plataformas em um só lugar para você comparar planos e encontrar opções com preços mais acessíveis.</p><p><i>Convencer</i>Tudo de forma simples e transparente, sem fidelidade e sem custos adicionais. Você tem total controle e flexibilidade para escolher e cancelar quando quiser.</p><p><i>Marcar</i>VYRO. Suas assinaturas, por menos. Por que pagar mais, se você pode pagar menos?</p></article><article class="sc c-green"><h3>Café Prosa</h3><span class="sc-s">exemplo, produto inventado</span><p><i>Capturar</i>Seu café acabou de novo, e você nem lembrou de comprar?</p><p><i>Revelar</i>Conheça o Prosa.</p><p><i>Explicar</i>Todo mês, o café que você escolhe chega na sua porta, no dia certo.</p><p><i>Convencer</i>Pause, troque o sabor ou cancele quando quiser, sem multa.</p><p><i>Marcar</i>Prosa. Café na hora certa.</p></article><article class="sc c-sky"><h3>Pulso</h3><span class="sc-s">exemplo, produto inventado</span><p><i>Capturar</i>Você paga academia e vai... duas vezes por mês?</p><p><i>Revelar</i>Conheça o Pulso.</p><p><i>Explicar</i>Treinos de 15 minutos, em casa, sem aparelho.</p><p><i>Convencer</i>Você escolhe o dia, o foco e o tempo. Sem cobrança por falta.</p><p><i>Marcar</i>Pulso. Treino que cabe na sua semana.</p></article></div><div class="dots" aria-hidden="true"></div></div></div>
       <div class="why">
         <h3>Por que um roteiro funciona</h3>
         <ul>
@@ -1434,6 +1472,36 @@ document.getElementById('fichaLink').addEventListener('click',function(e){if(win
     c.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(c); } });
   });
   pick(cards[0]);
+})();
+
+(function () {
+  var root = document.documentElement, btn = document.getElementById('themeBtn');
+  function apply(t) { if (t === 'light') root.setAttribute('data-theme', 'light'); else root.removeAttribute('data-theme'); if (btn) btn.setAttribute('aria-label', t === 'light' ? 'Trocar para tema escuro' : 'Trocar para tema claro'); var m = document.querySelector('meta[name=theme-color]'); if (m) m.setAttribute('content', t === 'light' ? '#F6F6F7' : '#08080A'); }
+  var saved = null; try { saved = localStorage.getItem('fm-theme'); } catch (e) {}
+  apply(saved === 'light' ? 'light' : 'dark');
+  if (btn) btn.addEventListener('click', function () { var t = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light'; apply(t); try { localStorage.setItem('fm-theme', t); } catch (e) {} });
+
+  var stories = Array.prototype.slice.call(document.querySelectorAll('[data-story]')).map(function (el) {
+    var items = Array.prototype.slice.call(el.querySelector('.items').children), dots = el.querySelector('.dots');
+    el.style.setProperty('--n', items.length);
+    items.forEach(function () { dots.appendChild(document.createElement('i')); });
+    return { el: el, items: items, dots: dots.children, cur: -1 };
+  });
+  var orbs = Array.prototype.slice.call(document.querySelectorAll('.orb')), tick = false;
+  var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function upd() {
+    tick = false; var vh = window.innerHeight;
+    stories.forEach(function (st) {
+      var r = st.el.getBoundingClientRect(), span = Math.max(1, r.height - vh), p = Math.min(1, Math.max(0, -(r.top - 64) / span));
+      var i = Math.min(st.items.length - 1, Math.floor(p * st.items.length));
+      if (i === st.cur) return; st.cur = i;
+      st.items.forEach(function (x, k) { x.classList.toggle('is-on', k === i); x.classList.toggle('is-past', k < i); x.setAttribute('aria-hidden', k === i ? 'false' : 'true'); });
+      for (var d = 0; d < st.dots.length; d++) st.dots[d].classList.toggle('on', d === i);
+    });
+    if (!still) orbs.forEach(function (o) { var r = o.getBoundingClientRect(); o.style.setProperty('--py', Math.round(-(r.top + r.height / 2 - vh / 2) * 0.12) + 'px'); });
+  }
+  function req() { if (!tick) { tick = true; requestAnimationFrame(upd); } }
+  window.addEventListener('scroll', req, { passive: true }); window.addEventListener('resize', req); upd();
 })();
 </script>
 </body>
