@@ -475,6 +475,8 @@ textarea.inp { resize: vertical; min-height: 84px; }
 #investimento > .wrap > .sec-sub { max-width: 46ch; }
 #duvidas h2 .scrib svg { bottom: -.1em; }
 @media (min-width: 900px) { .plans { align-items: start; } }
+.plan .badge { top: 12px; right: 14px; padding: 2px 10px 4px; border-radius: 8px; background: color-mix(in srgb, var(--accent) 18%, var(--surface)); color: #DDD2FF; font-size: 1.375rem; transform: rotate(-3deg); }
+.plan .badge::after { display: none; }
 </style>
 </head>
 <body>
@@ -1096,14 +1098,14 @@ document.getElementById('sendCopy').addEventListener('click', function () {
   } else { Array.prototype.forEach.call(targets, function (t) { t.classList.add('in'); }); }
   if (st) {
     st.hidden = false; st.classList.add('off');
-    var hero = document.getElementById('inicio'), inv = document.getElementById('investimento');
-    var heroOut = false, invIn = false;
-    function upd() { st.classList.toggle('off', !(heroOut && !invIn)); }
-    if ('IntersectionObserver' in window) {
-      var rot = document.getElementById('roteiro') || hero;
-      new IntersectionObserver(function (es) { heroOut = !es[0].isIntersecting && es[0].boundingClientRect.bottom < 0; upd(); }).observe(rot);
-      new IntersectionObserver(function (es) { invIn = es[0].isIntersecting; upd(); }, { threshold: 0.05 }).observe(inv);
+    var rot = document.getElementById('roteiro') || document.getElementById('inicio'), inv = document.getElementById('investimento');
+    function chk() {
+      var a = rot.getBoundingClientRect(), b = inv.getBoundingClientRect();
+      st.classList.toggle('off', !(a.bottom < 0 && b.top > window.innerHeight * 0.6));
     }
+    window.addEventListener('scroll', chk, { passive: true });
+    window.addEventListener('resize', chk);
+    chk();
   }
   var pk = document.querySelector('.plan.top-pick');
   if (pk && typeof pickPlan === 'function') pickPlan(pk.getAttribute('data-plan'), pk.getAttribute('data-msg'), pk.getAttribute('data-styles') === '1');
