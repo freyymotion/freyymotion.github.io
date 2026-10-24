@@ -83,7 +83,6 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 800; margin: 0; text
 h2 { font-size: clamp(1.75rem, 5vw, 2.75rem); line-height: 1.08; }
 h3 { font-size: 1.125rem; line-height: 1.25; letter-spacing: -0.01em; }
 p { margin: 0; }
-.eyebrow { font: 500 0.75rem/1.4 var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
 .lede { font-size: 1.125rem; color: var(--muted); max-width: 54ch; }
 
 .top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); border-bottom: 1px solid var(--line); }
@@ -135,8 +134,6 @@ p { margin: 0; }
 
 
 /* v3 hero: mascote apresenta, título vende */
-.kick { margin: 0 0 18px; font: 500 0.75rem var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
-.kick i { font-style: normal; color: var(--accent); margin: 0 6px; }
 .hero .wrap h1 { text-transform: none; font-size: clamp(2.4rem, 9.5vw, 4.75rem); line-height: 1.02; letter-spacing: -0.035em; }
 @media (min-width: 1100px) { .hero .wrap h1 { font-size: 5.5rem; } }
 .hero .tagline { margin-top: 22px; color: var(--muted); font-weight: 500; }
@@ -205,7 +202,6 @@ h2 .scrib path { stroke-width: 3; }
 .fc-t { color: var(--muted); font-size: .9375rem; }
 .fc-b { justify-self: start; margin-top: 8px; padding: 10px 18px; border-radius: 8px; background: var(--fg); color: var(--bg); font-weight: 600; }
 .ficha-cta:hover .fc-b { background: var(--accent); }
-.note a, .foot a { display: inline-block; padding: 14px 6px; margin: -14px -2px; }
 /* v9: ficha em aba */
 .sh-back{position:fixed;inset:0;z-index:100;background:rgba(8,8,10,.55);-webkit-backdrop-filter:blur(16px) saturate(.8);backdrop-filter:blur(16px) saturate(.8);opacity:0;transition:opacity .25s}
 .sh-back.on{opacity:1}
@@ -250,11 +246,8 @@ html.sh-lock,html.sh-lock body{overflow:hidden}
 @keyframes spin { to { transform: rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) { .star { animation: none; } }
 body { counter-reset: sec; }
-main > section:not(.hero) .eyebrow::before { counter-increment: sec; content: "0" counter(sec) " / "; color: var(--accent); }
 /* v2: conversão e curiosidade */
 .prog { position: fixed; top: 0; left: 0; height: 3px; width: 100%; transform-origin: 0 50%; transform: scaleX(0); background: linear-gradient(90deg, var(--accent), var(--violet)); z-index: 60; }
-.spot { position: fixed; inset: 0; pointer-events: none; z-index: 0; background: radial-gradient(520px circle at var(--mx, 70%) var(--my, 20%), color-mix(in srgb, var(--accent) 9%, transparent), transparent 60%); opacity: 0; transition: opacity 0.6s; }
-@media (hover: hover) and (pointer: fine) { .spot.on { opacity: 1; } }
 main, .top, footer { position: relative; z-index: 1; }
 .hook { display: grid; gap: 4px; margin-top: 44px; max-width: 46ch; text-decoration: none; color: var(--muted); font-size: 0.9375rem; line-height: 1.5; }
 .hook-b { color: var(--fg); font-weight: 600; }
@@ -341,14 +334,8 @@ body.lock { overflow: hidden; }
 .about { display: grid; gap: 48px; }
 .about-main { min-width: 0; }
 .about-main h2 { margin-top: 12px; font-size: clamp(2.2rem, 7vw, 4rem); line-height: 1; }
-.stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 32px; }
-.stat { padding: 18px 16px 20px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); }
-.stat .big { display: block; font: 800 clamp(3.5rem, 13vw, 5.5rem)/0.9 var(--font-display); letter-spacing: -0.04em; color: var(--track); font-variant-numeric: tabular-nums; }
-.stat .lbl { display: block; margin-top: 12px; font: 500 0.75rem/1.4 var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
 .about-text { margin-top: 28px; display: grid; gap: 16px; max-width: 52ch; }
 .about-text .lead { font: 700 clamp(1.2rem, 3.2vw, 1.5rem)/1.3 var(--font-display); letter-spacing: -0.01em; }
-.deliver { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
-.deliver li { padding: 6px 12px; border-radius: 999px; border: 1px solid var(--track); color: var(--track); font: 500 0.8125rem var(--font-mono); letter-spacing: 0.04em; }
 .chat { min-width: 0; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); overflow: hidden; align-self: start; }
 .chat-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--line); font: 500 0.75rem var(--font-mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
 .chat-top b { display: inline-flex; align-items: center; gap: 8px; font-weight: 500; color: var(--fg); }
@@ -471,6 +458,12 @@ textarea.inp { resize: vertical; min-height: 84px; }
 .foot { padding-block: 36px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.875rem; }
 
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+/* ajustes finais */
+.plan .badge { top: -15px; right: 14px; padding: 0; border-radius: 0; background: none; color: var(--accent); font: 400 1.5rem/1 var(--font-hand); letter-spacing: 0; text-transform: none; transform: rotate(-5deg); }
+.plan .badge::after { content: ""; display: block; height: 3px; margin-top: 2px; border-radius: 3px; background: var(--accent); opacity: .8; }
+.sty em, .count { font-family: var(--font-body); text-transform: none; letter-spacing: 0; }
+.note a, .foot a { display: inline-block; padding: 14px 0; margin: -14px 0; }
 </style>
 </head>
 <body>
