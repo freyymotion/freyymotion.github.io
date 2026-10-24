@@ -27,7 +27,7 @@
 <style>html{-webkit-text-size-adjust:100%}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Caveat+Brush&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Caveat+Brush&display=swap">
 <style>
 /* Layout: preto e branco puro. Azul, vermelho, roxo e violeta aparecem só como efeito (faixa, números, destaques). Vídeos numa fila horizontal com arrastar. */
 :root {
@@ -47,9 +47,9 @@
   --violet: #7458FF;
   --accent: #9B7BFF;
   --font-display: 'Bricolage Grotesque', 'Segoe UI', system-ui, sans-serif;
-  --font-body: 'Instrument Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-body: 'Bricolage Grotesque', 'Segoe UI', system-ui, sans-serif;
   --font-hand: 'Caveat Brush', 'Bradley Hand', 'Segoe Print', 'Comic Sans MS', cursive;
-  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --font-mono: 'Bricolage Grotesque', 'Segoe UI', system-ui, sans-serif;
   color-scheme: dark;
 }
 :root[data-theme="light"] {
@@ -520,7 +520,7 @@ textarea.inp { resize: vertical; min-height: 84px; }
       <a href="#portfolio">Portfólio</a>
       <a href="#sobre">Sobre</a>
       <a href="guia/">Como pedir</a>
-      <a href="#investimento">Investimento</a>
+      <a href="#investimento">Preços</a>
       <a href="#duvidas">Dúvidas</a>
     </nav>
     <a class="btn btn-primary btn-sm" href="#contato">Contato</a>
@@ -535,7 +535,7 @@ textarea.inp { resize: vertical; min-height: 84px; }
       <div class="live hero-mascot" id="mascot" role="img" aria-label="Mascote FREY"><span class="body"></span><span class="mouth" id="mouth"></span><svg viewBox="0 0 860 762" aria-hidden="true"><g class="eye" id="eyeA"><circle class="pupil" id="pA" cx="445" cy="416" r="47"/></g><g class="eye" id="eyeB"><circle class="pupil" id="pB" cx="539" cy="439" r="31"/></g></svg><span class="hold-hint" aria-hidden="true">segura o mascote</span></div>
       <h1>Roteiro, voz<br>e <span class="scrib">motion<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 13 C 32 5, 62 17, 102 9 S 170 7, 197 12"/></svg></span>.</h1>
       <p class="tagline">O anúncio inteiro, pronto pra publicar.</p>
-      <p class="lede">Crio anúncios em vídeo para Reels e TikTok. A entrega já vem com roteiro, voz, música e legenda.</p>
+      <p class="lede">Sou o João. Eu escrevo, narro e animo o seu anúncio pra Reels e TikTok. Você só posta.</p>
       <div class="cta">
         <a class="btn btn-primary" href="#investimento">Conhecer os planos</a>
         <a class="btn" href="#portfolio">Explorar os projetos</a>
@@ -547,7 +547,7 @@ textarea.inp { resize: vertical; min-height: 84px; }
   <section id="portfolio">
     <div class="wrap">
       <div class="sec-head">
-        <h2>Projetos selecionados</h2>
+        <h2>Anúncios que fiz pra produtos que inventei</h2>
         <div class="rail-ctrl">
           <span class="count" id="count" aria-live="polite"></span>
           <button class="arrow" id="prev" type="button" aria-label="Anterior">←</button>
@@ -565,11 +565,11 @@ textarea.inp { resize: vertical; min-height: 84px; }
       <h2 style="margin-top:12px">Um bom anúncio não começa na animação.</h2>
       <p class="sec-sub" style="margin-top:12px">Primeiro vem a ideia. Cada etapa do roteiro tem um propósito.</p>
       <ol class="rt">
-        <li><b>Capturar</b><em>Despertar curiosidade logo no início.</em></li>
-        <li><b>Revelar</b><em>Apresentar a solução com o nome da marca.</em></li>
-        <li><b>Explicar</b><em>Mostrar o valor da oferta sem enrolação.</em></li>
-        <li><b>Convencer</b><em>Tirar as dúvidas e reduzir as objeções.</em></li>
-        <li><b>Marcar</b><em>Fechar com uma mensagem que fica na memória.</em></li>
+        <li><b>Capturar</b><em>A primeira frase faz a pessoa parar de rolar.</em></li>
+        <li><b>Revelar</b><em>Aí sim aparece o nome do produto.</em></li>
+        <li><b>Explicar</b><em>Uma frase, uma ideia, sem enrolar.</em></li>
+        <li><b>Convencer</b><em>Responder a dúvida antes de ela virar desculpa.</em></li>
+        <li><b>Marcar</b><em>Fechar com algo curto que a pessoa repete.</em></li>
       </ol>
       <p class="sc-hint">Meus projetos conceituais e dois exemplos inventados. Arraste pro lado.</p>
       <div class="scripts" tabindex="0" aria-label="Exemplos de roteiro"><article class="sc c-lilac"><h3>ZUNGO</h3><span class="sc-s">projeto conceitual</span><p><i>Capturar</i>Seu pedido tá vindo, mas vindo de onde? App da loja, código, transportadora, nada.</p><p><i>Revelar</i>Conheça o ZUNGO.</p><p><i>Explicar</i>Todos os seus pedidos de lojas diferentes em um só lugar.</p><p><i>Convencer</i>Acompanhe as atualizações e saiba como seus pedidos estão avançando. Abriu, conferiu? Pronto.</p><p><i>Marcar</i>ZUNGO, seu pedido sem mistério.</p></article><article class="sc c-violet"><h3>VYRO</h3><span class="sc-s">projeto conceitual</span><p><i>Capturar</i>Você paga streaming, música, séries... tudo separado, e só usa dois?</p><p><i>Revelar</i>Conheça a VYRO!</p><p><i>Explicar</i>Reunimos as principais plataformas em um só lugar para você comparar planos e encontrar opções com preços mais acessíveis.</p><p><i>Convencer</i>Tudo de forma simples e transparente, sem fidelidade e sem custos adicionais. Você tem total controle e flexibilidade para escolher e cancelar quando quiser.</p><p><i>Marcar</i>VYRO. Suas assinaturas, por menos. Por que pagar mais, se você pode pagar menos?</p></article><article class="sc c-green"><h3>Café Prosa</h3><span class="sc-s">exemplo, produto inventado</span><p><i>Capturar</i>Seu café acabou de novo, e você nem lembrou de comprar?</p><p><i>Revelar</i>Conheça o Prosa.</p><p><i>Explicar</i>Todo mês, o café que você escolhe chega na sua porta, no dia certo.</p><p><i>Convencer</i>Pause, troque o sabor ou cancele quando quiser, sem multa.</p><p><i>Marcar</i>Prosa. Café na hora certa.</p></article><article class="sc c-sky"><h3>Pulso</h3><span class="sc-s">exemplo, produto inventado</span><p><i>Capturar</i>Você paga academia e vai... duas vezes por mês?</p><p><i>Revelar</i>Conheça o Pulso.</p><p><i>Explicar</i>Treinos de 15 minutos, em casa, sem aparelho.</p><p><i>Convencer</i>Você escolhe o dia, o foco e o tempo. Sem cobrança por falta.</p><p><i>Marcar</i>Pulso. Treino que cabe na sua semana.</p></article></div>
@@ -618,13 +618,12 @@ textarea.inp { resize: vertical; min-height: 84px; }
 
   
 
-  <div class="bridge"><a href="#investimento">Agora a pergunta que importa: quanto custa?</a></div>
 
   <section id="investimento">
     <span class="orb o2" aria-hidden="true"></span>
     <svg class="star s3" viewBox="0 0 100 100" aria-hidden="true"><use href="#st8"/></svg>
     <div class="wrap">
-      <h2 style="margin-top:12px">Escolha o seu <span class="scrib">plano<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 12 C 40 6, 80 16, 120 9 S 175 8, 197 12"/></svg></span></h2>
+      <h2 style="margin-top:12px">Quanto <span class="scrib">custa<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 12 C 40 6, 80 16, 120 9 S 175 8, 197 12"/></svg></span>?</h2>
       <p class="sec-sub" style="margin-top:12px">Os valores são fixos: sem orçamento e sem surpresa. Plano, prazo e valor a gente combina na conversa, antes de começar.</p>
       <div class="plans" id="plans">
         <button class="plan" type="button" data-plan="Ad simples" data-msg="Fala Frey, quero o Ad simples pro meu vídeo" data-styles="0" aria-pressed="false">
@@ -674,7 +673,7 @@ textarea.inp { resize: vertical; min-height: 84px; }
 
   <section id="duvidas">
     <div class="wrap">
-      <h2 style="margin-top:12px">Perguntas <span class="scrib">frequentes<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 11 C 45 16, 85 6, 125 12 S 180 14, 197 9"/></svg></span></h2>
+      <h2 style="margin-top:12px">Dúvidas que sempre <span class="scrib">aparecem<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 11 C 45 16, 85 6, 125 12 S 180 14, 197 9"/></svg></span></h2></h2>
       <div class="faq">
         <details>
           <summary>Como funciona o pagamento?</summary>
@@ -685,8 +684,8 @@ textarea.inp { resize: vertical; min-height: 84px; }
           <p>Arquivo MP4 vertical, pronto pra postar. No Ad Único e no Pack 3 Ads, em 1080p. No Ad simples, a qualidade acompanha o vídeo que você enviar.</p>
         </details>
         <details>
-          <summary>A locução é gravada por uma pessoa?</summary>
-          <p>Não. A locução é feita com voz de IA.</p>
+          <summary>A voz é gravada por uma pessoa?</summary>
+          <p>Não. A voz é feita com voz de IA.</p>
         </details>
         <details>
           <summary>Quantos ajustes estão inclusos?</summary>
@@ -1277,7 +1276,7 @@ planPick.addEventListener('click',function(e){var b=e.target.closest('.opt');if(
   }
 
   function draw(rows, mascot) {
-    var W = 1080, P = 72, FD = '"Bricolage Grotesque","Poppins","Segoe UI",Arial,sans-serif', FB = '"Instrument Sans","Inter",Arial,sans-serif', FM = '"JetBrains Mono","DejaVu Sans Mono",monospace';
+    var W = 1080, P = 72, FD = '"Bricolage Grotesque","Poppins","Segoe UI",Arial,sans-serif', FB = '"Bricolage Grotesque","Segoe UI",Arial,sans-serif', FM = '"Bricolage Grotesque","Segoe UI",Arial,sans-serif';
     var c = document.createElement('canvas'); c.width = W; c.height = 4000;
     var x = c.getContext('2d');
     function pass(doDraw) {
