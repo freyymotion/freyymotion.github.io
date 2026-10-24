@@ -374,7 +374,7 @@ body.lock { overflow: hidden; }
 .steps p { margin-top: 6px; color: var(--muted); max-width: 56ch; }
 
 /* planos: sempre visíveis. Empilhados no celular, três colunas no computador */
-.plans { display: grid; gap: 14px; margin-top: 32px; max-width: 980px; }
+.plans { display: grid; gap: 14px; margin-top: 32px; }
 @media (min-width: 900px) { .plans { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; } }
 .plan { transition: border-color 0.3s; }
 .plan { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; width: 100%; padding: 18px; text-align: left; font: inherit; color: inherit; cursor: pointer; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
@@ -464,6 +464,17 @@ textarea.inp { resize: vertical; min-height: 84px; }
 .plan .badge::after { content: ""; display: block; height: 3px; margin-top: 2px; border-radius: 3px; background: var(--accent); opacity: .8; }
 .sty em, .count { font-family: var(--font-body); text-transform: none; letter-spacing: 0; }
 .note a, .foot a { display: inline-block; padding: 14px 0; margin: -14px 0; }
+
+/* ritmo e cor por seção */
+#roteiro { --sc: var(--red); } #sobre { --sc: var(--blue); } #investimento { --sc: var(--purple); } #duvidas { --sc: #19B38A; }
+.scrib path { stroke: var(--sc, var(--fg)); }
+.rt li::before { color: var(--sc); }
+.faq details[open] summary::after { color: var(--sc); }
+#investimento .orb { background: radial-gradient(closest-side, color-mix(in srgb, var(--purple) 30%, transparent), transparent); }
+#investimento > .wrap > h2, #investimento > .wrap > .sec-sub { text-align: center; margin-inline: auto; }
+#investimento > .wrap > .sec-sub { max-width: 46ch; }
+#duvidas h2 .scrib svg { bottom: -.1em; }
+@media (min-width: 900px) { .plans { align-items: start; } }
 </style>
 </head>
 <body>
@@ -517,7 +528,6 @@ textarea.inp { resize: vertical; min-height: 84px; }
     </div>
   </section>
 
-  <div class="bridge"><a href="#roteiro">Como o roteiro de cada vídeo é feito</a></div>
 
   <section id="roteiro">
     <div class="wrap">
@@ -588,15 +598,13 @@ textarea.inp { resize: vertical; min-height: 84px; }
           <span class="prow"><span class="from">A partir de</span><span class="price">R$70</span></span>
           <span class="desc">Já tem o vídeo? Eu deixo ele com cara de anúncio: corte no ritmo, legenda e música.</span>
           <span class="sty"><span>Estilo Parapy<em>veja no portfólio</em></span><span>Estilo Vanta<em>veja no portfólio</em></span></span>
-          <span class="inc"><span>Cortes e ritmo</span><span>Legendas</span><span>Música</span></span>
           <span class="when">Vídeo de até 30 segundos. Entrega em até 3 dias úteis.</span>
           <span class="pick"></span>
         </button>
         <button class="plan" type="button" data-plan="Ad Único" data-msg="Fala Frey, quero o Ad Único pra [meu produto]" data-styles="1" aria-pressed="false">
           <span class="name">Ad Único</span>
           <span class="prow"><span class="from">A partir de</span><span class="price">R$125</span></span>
-          <span class="desc">Eu cuido de tudo: escrevo o roteiro, faço a voz e animo. Você só me manda o produto.</span>
-          <span class="inc"><span>Roteiro</span><span>Locução de IA</span><span>Motion e legendas</span><span>Arquivo MP4 em 1080p</span></span>
+          <span class="desc">Eu cuido de tudo: escrevo o roteiro, faço a voz (IA), animo e coloco legenda. Você só me manda o produto e recebe um MP4 em 1080p.</span>
           <span class="when">Vídeo de até 30 segundos. Entrega em 3-4 dias úteis.</span>
           <span class="pick"></span>
         </button>
@@ -605,8 +613,7 @@ textarea.inp { resize: vertical; min-height: 84px; }
           <span class="name">Pack 3 Ads</span>
           <span class="prow"><span class="from">A partir de</span><span class="price">R$315</span></span>
           <span class="anchor"><s>3 × R$125 = R$375</s><b>Você economiza R$60 · R$105 por vídeo</b></span>
-          <span class="desc">Três anúncios da mesma oferta, cada um com um jeito de chamar atenção. Aí você vê qual funciona melhor.</span>
-          <span class="inc"><span>Roteiro, locução e motion</span><span>Legendas em todos</span><span>Arquivos MP4 em 1080p</span><span>1 ajuste por vídeo</span><span>Entrega 1 por vez</span></span>
+          <span class="desc">Três anúncios da mesma oferta, cada um com um jeito de chamar atenção. Aí você vê qual funciona melhor. Cada um vem com roteiro, voz, motion e legenda, 1 ajuste por vídeo e MP4 em 1080p.</span>
           <span class="when">Vídeos de até 30 segundos. Entrega escalonada em até 10 dias úteis (te mando 1 por vez).</span>
           <span class="pick"></span>
         </button>
@@ -633,7 +640,7 @@ textarea.inp { resize: vertical; min-height: 84px; }
 
   <section id="duvidas">
     <div class="wrap">
-      <h2 style="margin-top:12px">Perguntas frequentes</h2>
+      <h2 style="margin-top:12px">Perguntas <span class="scrib">frequentes<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 11 C 45 16, 85 6, 125 12 S 180 14, 197 9"/></svg></span></h2>
       <div class="faq">
         <details>
           <summary>Como funciona o pagamento?</summary>
