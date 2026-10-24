@@ -552,8 +552,8 @@ textarea.inp { resize: vertical; min-height: 84px; }
 :root[data-theme="light"] .plan[aria-pressed="true"] .pick, :root[data-theme="light"] .anchor b { color: var(--violet); }
 
 /* mascote assobiando acompanha o roteiro */
-.js .story-pin { padding-bottom: 24px; }
-.wm { position: absolute; z-index: 3; width: 112px; left: var(--x, 0%); top: var(--y, 80%); pointer-events: none; transition: left .9s cubic-bezier(.3,1.25,.5,1), top .9s cubic-bezier(.3,1.25,.5,1); }
+.js .story-pin { padding-block: 92px; }
+.wm { position: absolute; z-index: 3; width: 84px; left: var(--x, 0%); top: var(--y, 80%); pointer-events: none; transition: left .9s cubic-bezier(.3,1.25,.5,1), top .9s cubic-bezier(.3,1.25,.5,1); }
 .wm-in { aspect-ratio: 1; position: relative; color: var(--fg); transform: scale(var(--s, 1)) rotate(var(--r, 0deg)); transition: transform .9s cubic-bezier(.3,1.4,.5,1); }
 .wm.zoom .wm-in { transform: scale(calc(var(--s, 1) * 1.18)) rotate(var(--r, 0deg)); transition-duration: .35s; }
 .wm .body { position: absolute; inset: 0; background: var(--whistle) center / 100% 100% no-repeat; filter: drop-shadow(0 0 1px var(--fg)) drop-shadow(0 0 .6px var(--fg)); }
@@ -1512,8 +1512,8 @@ document.getElementById('fichaLink').addEventListener('click',function(e){if(win
   });
   var orbs = Array.prototype.slice.call(document.querySelectorAll('.orb')), tick = false;
   var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var SPOTS2 = [[2, 74, 1.1, 0], [58, 58, 1.4, 360], [2, 34, 1.2, 720], [58, 10, 1.5, 1080], [34, 72, 1.3, 1440]];
-  var SPOTS = [[-6, 70, 1.0, -8], [66, 2, 1.6, 10], [64, 66, 1.3, -6], [-12, 4, 1.9, 8], [38, 68, 1.5, 0]];
+  var SPOTS2 = [[2, 'B', 1.0, 0], [66, 'T', 1.05, 360], [2, 'T', 1.0, 720], [66, 'B', 1.15, 1080], [34, 'B', 1.1, 1440]];
+  var SPOTS = [[-2, 'B', 1.0, -8], [68, 'T', 1.05, 10], [66, 'B', 1.15, -6], [-2, 'T', 1.0, 8], [36, 'B', 1.1, 0]];
   function look(st, dx, dy) { [].forEach.call(st.mas.querySelectorAll('.pp,.hl,.pupil'), function (n) { var k = n.classList.contains('pupil') ? 9 : 16; n.style.transform = 'translate(' + (dx * k) + 'px,' + (dy * k) + 'px)'; }); }
   var lastY = window.scrollY, idle = 0;
   function upd() {
@@ -1527,7 +1527,7 @@ document.getElementById('fichaLink').addEventListener('click',function(e){if(win
       st.items.forEach(function (x, k) { x.classList.toggle('is-on', k === i); x.classList.toggle('is-past', k < i); x.setAttribute('aria-hidden', k === i ? 'false' : 'true'); });
       for (var d = 0; d < st.dots.length; d++) st.dots[d].classList.toggle('on', d === i);
       var P = (st.star ? SPOTS2 : SPOTS)[i % 5], m = st.mas; if (st.star) P = [P[0], P[1], P[2], P[3] + 0];
-      m.style.setProperty('--x', P[0] + '%'); m.style.setProperty('--y', P[1] + '%'); m.style.setProperty('--s', P[2]); m.style.setProperty('--r', P[3] + 'deg');
+      m.style.setProperty('--x', P[0] + '%'); m.style.setProperty('--y', P[1] === 'T' ? '2px' : 'calc(100% - 90px)'); m.style.setProperty('--s', P[2]); m.style.setProperty('--r', P[3] + 'deg');
       m.classList.remove('pop'); void m.offsetWidth; m.classList.add('pop'); look(st, P[0] < 40 ? 1 : -1, 0);
     });
     if (!still) orbs.forEach(function (o) { var r = o.getBoundingClientRect(); o.style.setProperty('--py', Math.round(-(r.top + r.height / 2 - vh / 2) * 0.12) + 'px'); });
