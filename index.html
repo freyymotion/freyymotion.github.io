@@ -477,6 +477,14 @@ textarea.inp { resize: vertical; min-height: 84px; }
 @media (min-width: 900px) { .plans { align-items: start; } }
 .plan .badge { top: 12px; right: 14px; padding: 2px 10px 4px; border-radius: 8px; background: color-mix(in srgb, var(--accent) 18%, var(--surface)); color: #DDD2FF; font-size: 1.375rem; transform: rotate(-3deg); }
 .plan .badge::after { display: none; }
+
+.sc-hint { margin: 24px 0 10px; color: var(--muted); font: 400 1.25rem/1.2 var(--font-hand); }
+.scripts { scroll-padding-inline: 20px; display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 12px; margin-inline: -20px; padding-inline: 20px; scrollbar-width: thin; }
+.sc { flex: 0 0 min(86%, 420px); scroll-snap-align: start; display: grid; gap: 12px; align-content: start; padding: 20px; border: 1px solid var(--line); border-top: 3px solid var(--track, var(--accent)); border-radius: 12px; background: var(--surface); }
+.sc h3 { font-size: 1.5rem; }
+.sc-s { margin-top: -8px; color: var(--muted); font-size: .875rem; }
+.sc p { margin: 0; line-height: 1.5; }
+.sc i { display: block; font: 400 1.25rem/1 var(--font-hand); font-style: normal; color: var(--track, var(--accent)); margin-bottom: 2px; }
 </style>
 </head>
 <body>
@@ -542,17 +550,8 @@ textarea.inp { resize: vertical; min-height: 84px; }
         <li><b>Convencer</b><em>Tirar as dúvidas e reduzir as objeções.</em></li>
         <li><b>Marcar</b><em>Fechar com uma mensagem que fica na memória.</em></li>
       </ol>
-      <details class="ex">
-        <summary>Ver como isso vira um roteiro</summary>
-        <div class="ex-b">
-          <p class="ex-t">Roteiro do VYRO · projeto conceitual</p>
-          <p><i>01 Capturar</i>Você paga Netflix, Spotify, HBO, YouTube Premium... e só usa dois?</p>
-          <p><i>02 Revelar</i>Conheça a VYRO!</p>
-          <p><i>03 Explicar</i>Reunimos as principais plataformas em um só lugar para você comparar planos e encontrar opções com preços mais acessíveis.</p>
-          <p><i>04 Convencer</i>Tudo de forma simples e transparente, sem fidelidade e sem custos adicionais. Você tem total controle e flexibilidade para escolher e cancelar quando quiser.</p>
-          <p><i>05 Marcar</i>VYRO. Suas assinaturas, por menos. Por que pagar mais, se você pode pagar menos?</p>
-        </div>
-      </details>
+      <p class="sc-hint">Roteiros reais de projetos conceituais. Arraste pro lado.</p>
+      <div class="scripts" tabindex="0" aria-label="Exemplos de roteiro"><article class="sc c-lilac"><h3>ZUNGO</h3><span class="sc-s">projeto conceitual</span><p><i>Capturar</i>Seu pedido tá vindo, mas vindo de onde? App da loja, código, transportadora, nada.</p><p><i>Revelar</i>Conheça o ZUNGO.</p><p><i>Explicar</i>Todos os seus pedidos de lojas diferentes em um só lugar.</p><p><i>Convencer</i>Acompanhe as atualizações e saiba como seus pedidos estão avançando. Abriu, conferiu? Pronto.</p><p><i>Marcar</i>ZUNGO, seu pedido sem mistério.</p></article><article class="sc c-violet"><h3>VYRO</h3><span class="sc-s">projeto conceitual</span><p><i>Capturar</i>Você paga streaming, música, séries... tudo separado, e só usa dois?</p><p><i>Revelar</i>Conheça a VYRO!</p><p><i>Explicar</i>Reunimos as principais plataformas em um só lugar para você comparar planos e encontrar opções com preços mais acessíveis.</p><p><i>Convencer</i>Tudo de forma simples e transparente, sem fidelidade e sem custos adicionais. Você tem total controle e flexibilidade para escolher e cancelar quando quiser.</p><p><i>Marcar</i>VYRO. Suas assinaturas, por menos. Por que pagar mais, se você pode pagar menos?</p></article></div>
     </div>
   </section>
 
