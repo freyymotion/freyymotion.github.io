@@ -336,15 +336,7 @@ body.lock { overflow: hidden; }
 .about-main h2 { margin-top: 12px; font-size: clamp(2.2rem, 7vw, 4rem); line-height: 1; }
 .about-text { margin-top: 28px; display: grid; gap: 16px; max-width: 52ch; }
 .about-text .lead { font: 700 clamp(1.2rem, 3.2vw, 1.5rem)/1.3 var(--font-display); letter-spacing: -0.01em; }
-.chat { min-width: 0; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); overflow: hidden; align-self: start; }
-.chat-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--line); font: 500 0.75rem var(--font-mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
-.chat-top b { display: inline-flex; align-items: center; gap: 8px; font-weight: 500; color: var(--fg); }
 .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--violet); }
-.chat-body { display: grid; gap: 10px; padding: 18px 16px; }
-.bubble { max-width: 88%; padding: 10px 14px; border-radius: 14px; font-size: 0.9375rem; line-height: 1.45; overflow-wrap: anywhere; }
-.bubble.in { justify-self: start; background: color-mix(in srgb, var(--fg) 9%, transparent); border-bottom-left-radius: 4px; }
-.bubble.out { justify-self: end; background: var(--fg); color: var(--bg); border-bottom-right-radius: 4px; }
-.chat-foot { padding: 14px 16px; border-top: 1px solid var(--line); font-size: 0.875rem; color: var(--muted); }
 @media (min-width: 880px) { .about { grid-template-columns: 1.15fr 0.85fr; gap: 64px; align-items: start; } }
 
 .steps { list-style: none; margin: 32px 0 0; padding: 0; border-bottom: 1px solid var(--line); }
@@ -492,6 +484,21 @@ textarea.inp { resize: vertical; min-height: 84px; }
 .why li { line-height: 1.5; color: var(--muted); }
 .why b { color: var(--fg); font-weight: 600; }
 @media (min-width: 820px) { .why ul { grid-template-columns: 1fr 1fr; gap: 14px 32px; } }
+
+.dm { min-width: 0; align-self: start; }
+.dm-note { margin: 0 0 8px 6px; font: 400 1.5rem/1 var(--font-hand); color: var(--muted); transform: rotate(-2deg); transform-origin: left; }
+.dm-card { border: 1px solid var(--line); border-radius: 22px; background: var(--surface); overflow: hidden; transform: rotate(.6deg); box-shadow: 0 24px 60px -30px color-mix(in srgb, var(--accent) 45%, transparent); }
+.dm-top { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-bottom: 1px solid var(--line); }
+.dm-av { flex: none; width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; background: var(--bg); border: 1px solid var(--line); }
+.dm-av .mascot { width: 24px; color: var(--fg); }
+.dm-who { display: grid; line-height: 1.2; }
+.dm-who b { font-weight: 600; }
+.dm-who small { color: var(--muted); font-size: .8125rem; }
+.dm-body { display: grid; gap: 8px; padding: 18px 16px; }
+.dm-body .b { margin: 0; max-width: 86%; padding: 10px 14px; border-radius: 18px; font-size: .9375rem; line-height: 1.45; overflow-wrap: anywhere; }
+.dm-body .in { justify-self: start; background: color-mix(in srgb, var(--fg) 10%, var(--surface)); border-bottom-left-radius: 5px; }
+.dm-body .out { justify-self: end; background: var(--accent); color: #0B0B0E; border-bottom-right-radius: 5px; }
+.dm-foot { margin: 0; padding: 12px 16px 16px; color: var(--muted); font-size: .875rem; }
 </style>
 </head>
 <body>
@@ -579,20 +586,23 @@ textarea.inp { resize: vertical; min-height: 84px; }
         <h2>Sou o João, FREY.</h2>
         
         <div class="about-text">
-          <p class="lead">Edito há 4 anos, e há 1 trabalho focado em motion design. Crio anúncios completos: roteiro, locução, animação e legendas.</p>
+          <p class="lead">Edito vídeo há 4 anos e, faz 1, me dedico só a motion design. Faço o anúncio inteiro: roteiro, voz, animação e legenda.</p>
           
           <p>Você me manda o produto. Eu te entrego o anúncio pronto pra postar.</p>
         </div>
       </div>
-      <div class="chat" aria-label="Exemplo de conversa">
-        <div class="chat-top"><b><span class="dot" aria-hidden="true"></span>FREY.MOTION</b><span>Exemplo</span></div>
-        <div class="chat-body">
-          <div class="bubble in">Fala Frey, quero um ad pra [meu produto]</div>
-          <div class="bubble out">Fechou. Me manda o produto e 1 referência. Áudio de 1 min resolve.</div>
-          <div class="bubble in">Mandei.</div>
-          <div class="bubble out">Anúncio pronto pra postar em 3-4 dias úteis.</div>
+      <div class="dm" aria-label="Exemplo de conversa no Instagram">
+        <p class="dm-note">é assim que a gente conversa</p>
+        <div class="dm-card">
+          <div class="dm-top"><span class="dm-av"><span class="mascot" aria-hidden="true"></span></span><span class="dm-who"><b>frey.motion</b><small>Direct do Instagram</small></span></div>
+          <div class="dm-body">
+            <p class="b in">Oi Frey! Vi seus vídeos e quero um ad pro meu app.</p>
+            <p class="b out">Fala! Me manda o nome do app e o que ele faz, em uma frase. Pode ser por áudio.</p>
+            <p class="b in">Pulso. Treino de 15 minutos em casa.</p>
+            <p class="b out">Boa! Já vou escrever o roteiro. Te mando o anúncio pronto em 3-4 dias úteis.</p>
+          </div>
+          <p class="dm-foot">Sem ligação. Tudo por mensagem, pra ficar registrado.</p>
         </div>
-        <div class="chat-foot">Atendimento realizado exclusivamente por mensagem.</div>
       </div>
     </div>
   </section>
