@@ -236,6 +236,9 @@ html.sh-lock,html.sh-lock body{overflow:hidden}
 
 .sheet .bout .cta .btn { flex: 1 1 40%; min-height: 48px; }
 .sheet .bout .cta .btn-primary { flex: 1 1 100%; min-height: 52px; }
+
+.open-note { display: flex; align-items: center; gap: 10px; margin-top: 22px; font: 400 1.375rem/1.2 var(--font-hand); color: var(--muted); }
+.open-note i { width: 9px; height: 9px; border-radius: 50%; background: #3DDC84; box-shadow: 0 0 0 4px color-mix(in srgb, #3DDC84 22%, transparent); flex: none; }
 /* v3: textura e estrelas sutis */
 
 .star { position: absolute; pointer-events: none; z-index: 0; animation: spin 90s linear infinite; }
@@ -502,6 +505,7 @@ textarea.inp { resize: vertical; min-height: 84px; }
         <a class="btn btn-primary" href="#investimento">Conhecer os planos</a>
         <a class="btn" href="#portfolio">Explorar os projetos</a>
       </div>
+      <p class="open-note"><i aria-hidden="true"></i>Agenda aberta pra novos anúncios.</p>
     </div>
   </section>
 
@@ -584,11 +588,12 @@ textarea.inp { resize: vertical; min-height: 84px; }
     <svg class="star s3" viewBox="0 0 100 100" aria-hidden="true"><use href="#st8"/></svg>
     <div class="wrap">
       <h2 style="margin-top:12px">Escolha o seu <span class="scrib">plano<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 12 C 40 6, 80 16, 120 9 S 175 8, 197 12"/></svg></span></h2>
+      <p class="sec-sub" style="margin-top:12px">Os valores são fixos: sem orçamento e sem surpresa. Plano, prazo e valor a gente combina na conversa, antes de começar.</p>
       <div class="plans" id="plans">
         <button class="plan" type="button" data-plan="Ad simples" data-msg="Fala Frey, quero o Ad simples pro meu vídeo" data-styles="0" aria-pressed="false">
           <span class="name">Ad simples</span>
           <span class="prow"><span class="from">A partir de</span><span class="price">R$70</span></span>
-          <span class="desc">Criativos simples, em 2 estilos.</span>
+          <span class="desc">Já tem o vídeo? Eu deixo ele com cara de anúncio: corte no ritmo, legenda e música.</span>
           <span class="sty"><span>Estilo Parapy<em>veja no portfólio</em></span><span>Estilo Vanta<em>veja no portfólio</em></span></span>
           <span class="inc"><span>Cortes e ritmo</span><span>Legendas</span><span>Música</span></span>
           <span class="when">Vídeo de até 30 segundos. Entrega em até 3 dias úteis.</span>
@@ -597,7 +602,7 @@ textarea.inp { resize: vertical; min-height: 84px; }
         <button class="plan" type="button" data-plan="Ad Único" data-msg="Fala Frey, quero o Ad Único pra [meu produto]" data-styles="1" aria-pressed="false">
           <span class="name">Ad Único</span>
           <span class="prow"><span class="from">A partir de</span><span class="price">R$125</span></span>
-          <span class="desc">Roteiro + Locução + Motion + Legenda.</span>
+          <span class="desc">Eu cuido de tudo: escrevo o roteiro, faço a voz e animo. Você só me manda o produto.</span>
           <span class="inc"><span>Roteiro</span><span>Locução de IA</span><span>Motion e legendas</span><span>Arquivo MP4 em 1080p</span></span>
           <span class="when">Vídeo de até 30 segundos. Entrega em 3-4 dias úteis.</span>
           <span class="pick"></span>
@@ -607,7 +612,7 @@ textarea.inp { resize: vertical; min-height: 84px; }
           <span class="name">Pack 3 Ads</span>
           <span class="prow"><span class="from">A partir de</span><span class="price">R$315</span></span>
           <span class="anchor"><s>3 × R$125 = R$375</s><b>Você economiza R$60 · R$105 por vídeo</b></span>
-          <span class="desc">3 anúncios pra testar abordagens diferentes da sua oferta.</span>
+          <span class="desc">Três anúncios da mesma oferta, cada um com um jeito de chamar atenção. Aí você vê qual funciona melhor.</span>
           <span class="inc"><span>Roteiro, locução e motion</span><span>Legendas em todos</span><span>Arquivos MP4 em 1080p</span><span>1 ajuste por vídeo</span><span>Entrega 1 por vez</span></span>
           <span class="when">Vídeos de até 30 segundos. Entrega escalonada em até 10 dias úteis (te mando 1 por vez).</span>
           <span class="pick"></span>
