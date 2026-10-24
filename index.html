@@ -499,6 +499,13 @@ textarea.inp { resize: vertical; min-height: 84px; }
 .dm-body .in { justify-self: start; background: color-mix(in srgb, var(--fg) 10%, var(--surface)); border-bottom-left-radius: 5px; }
 .dm-body .out { justify-self: end; background: var(--accent); color: #0B0B0E; border-bottom-right-radius: 5px; }
 .dm-foot { margin: 0; padding: 12px 16px 16px; color: var(--muted); font-size: .875rem; }
+
+.sc { cursor: pointer; transition: transform .28s cubic-bezier(.2,.8,.2,1), border-color .28s, box-shadow .28s, background .28s; -webkit-tap-highlight-color: transparent; }
+.scripts { padding-top: 10px; }
+.sc:active { transform: scale(.98); }
+.sc.on { transform: scale(1.03); border-color: var(--track, var(--accent)); box-shadow: 0 18px 44px -20px color-mix(in srgb, var(--track, var(--accent)) 70%, transparent); background: color-mix(in srgb, var(--track, var(--accent)) 6%, var(--surface)); }
+.sc.on:active { transform: scale(1.01); }
+@media (prefers-reduced-motion: reduce) { .sc, .sc.on, .sc:active { transform: none; } }
 </style>
 </head>
 <body>
@@ -1409,6 +1416,19 @@ planPick.addEventListener('click',function(e){var b=e.target.closest('.opt');if(
 
 })();
 document.getElementById('fichaLink').addEventListener('click',function(e){if(window.openFicha){e.preventDefault();window.openFicha(curPlan);}});
+
+(function () {
+  var box = document.querySelector('.scripts');
+  if (!box) return;
+  var cards = Array.prototype.slice.call(box.querySelectorAll('.sc'));
+  function pick(c) { cards.forEach(function (x) { x.classList.toggle('on', x === c); x.setAttribute('aria-pressed', x === c ? 'true' : 'false'); }); }
+  cards.forEach(function (c) {
+    c.setAttribute('tabindex', '0'); c.setAttribute('role', 'button');
+    c.addEventListener('click', function () { pick(c); });
+    c.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(c); } });
+  });
+  pick(cards[0]);
+})();
 </script>
 </body>
 </html>
