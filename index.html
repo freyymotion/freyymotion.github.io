@@ -567,6 +567,30 @@ textarea.inp { resize: vertical; min-height: 84px; }
 .wm.pop .wm-in { animation: wmpop .6s cubic-bezier(.3,1.6,.5,1); }
 @keyframes wmpop { 0% { filter: none; } 40% { translate: 0 -14px; } 100% { translate: 0 0; } }
 @media (prefers-reduced-motion: reduce) { .wm, .wm-in { transition: none; } .wm.pop .wm-in { animation: none; } }
+
+/* passada minimalista: menos blocos, mais ar, uma cor */
+section { padding-block: 104px; }
+@media (min-width: 820px) { section { padding-block: 160px; } }
+h2 { font-size: clamp(2.125rem, 7vw, 4rem); line-height: 1.02; letter-spacing: -0.035em; font-weight: 700; }
+.sec-sub { font-size: 1.0625rem; margin-top: 18px; }
+#roteiro, #sobre, #investimento, #duvidas { --sc: var(--accent); }
+.star { display: none; }
+/* portfólio: vídeo grande, sem caixa */
+.card { background: transparent; border: 0; border-radius: 10px; }
+.card:hover { border-color: transparent; }
+.card-body { padding: 14px 2px 0; gap: 4px; }
+.card .num { display: none; }
+.card-body h3 { font-size: 1.25rem; font-weight: 600; }
+.poster { border-radius: 10px; }
+/* roteiro e planos: linhas finas em vez de caixas */
+.sc { background: transparent; border-color: var(--line); }
+.why { background: transparent; border-left-width: 1px; padding-inline: 18px 0; }
+#investimento { background: var(--bg); border-block: 0; margin-top: 0; }
+#investimento .plan, #investimento .send { background: transparent; border-color: var(--line); }
+#investimento .orb { opacity: .12; }
+.plan[aria-pressed="true"] { border-color: var(--fg); }
+.dm-card { transform: none; }
+#investimento .sec-sub, #investimento .note { color: var(--muted); }
 </style>
 </head>
 <body>
@@ -648,7 +672,6 @@ textarea.inp { resize: vertical; min-height: 84px; }
     </div>
   </section>
 
-  <div class="bridge"><a href="#sobre">Todos esses vídeos são conceitos. Quem faz?</a></div>
 
   <section id="sobre">
     <div class="wrap about">
