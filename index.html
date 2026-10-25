@@ -27,7 +27,7 @@
 <style>html{-webkit-text-size-adjust:100%}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Caveat+Brush&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Caveat+Brush&family=Roboto+Mono:wght@400;500;700&display=swap">
 <style>
 /* Layout: preto e branco puro. Azul, vermelho, roxo e violeta aparecem só como efeito (faixa, números, destaques). Vídeos numa fila horizontal com arrastar. */
 :root {
@@ -599,6 +599,49 @@ h2 { font-size: clamp(2.125rem, 7vw, 4rem); line-height: 1.02; letter-spacing: -
 .plan[aria-pressed="true"] { animation: none !important; box-shadow: inset 0 0 0 1px var(--fg) !important; }
 .sheet { box-shadow: none; }
 @media (max-width: 819px) { .rail-ctrl { display: none; } }
+
+/* estética limpa (referência: loja minimalista) */
+:root { --font-mono: 'Roboto Mono', ui-monospace, Menlo, Consolas, monospace; }
+.btn, .nav a, .drawer a, .sec-sub, .tagline, .lede, .card-body p, .strip, .foot { font-family: var(--font-mono); }
+.btn { border-radius: 2px; letter-spacing: .02em; }
+.rail-ctrl { display: none !important; }
+/* portfólio em grade: um grande, depois dois por linha */
+.rail { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 14px; overflow: visible; scroll-snap-type: none; margin-inline: 0; padding: 28px 0 0; --cw: auto; }
+.rail .card { flex: none; width: auto; }
+.rail .card:first-child { grid-column: 1 / -1; }
+.rail .card:first-child .poster { aspect-ratio: 4 / 5; }
+.rail .card:not(:first-child) .card-body p { display: none; }
+.rail .card-body h3 { font-size: 1.0625rem; }
+@media (min-width: 820px) {
+  .rail { grid-template-columns: repeat(3, 1fr); gap: 40px 20px; }
+  .rail .card:first-child .poster { aspect-ratio: 16 / 9; }
+  .rail .card:not(:first-child) .card-body p { display: block; }
+}
+.rail.looping .card { transform: none; }
+/* faixa rolando com o mascote */
+.strip { overflow: hidden; border-block: 1px solid var(--line); background: var(--bg); padding-block: 14px; margin-block: 24px; }
+.strip-in { display: flex; align-items: center; gap: 36px; width: max-content; animation: stripmove 28s linear infinite; }
+.strip span { white-space: nowrap; font-size: .875rem; letter-spacing: .04em; color: var(--fg); }
+.strip .mascot { width: 36px; color: var(--fg); flex: none; }
+@keyframes stripmove { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .strip-in { animation: none; } }
+/* palavra gigante */
+.wordmark { font: 800 clamp(2.25rem, 13vw, 12rem)/.9 var(--font-display); letter-spacing: -0.045em; text-align: center; white-space: nowrap; overflow: hidden; padding: 56px 0 24px; color: var(--fg); user-select: none; }
+.wordmark span { color: var(--accent); }
+/* cabeçalho: logo no centro no celular, menu escondido */
+.menu-btn { display: none; }
+.drawer { display: grid; border-top: 1px solid var(--line); background: var(--bg); }
+.drawer[hidden] { display: none; }
+.drawer a { padding: 16px 20px; text-decoration: none; color: var(--fg); border-bottom: 1px solid var(--line); font-size: .9375rem; }
+@media (max-width: 819px) {
+  .top .wrap { display: grid; grid-template-columns: 1fr auto 1fr; gap: 8px; }
+  .menu-btn { display: grid; gap: 5px; width: 40px; height: 40px; align-content: center; justify-items: center; background: none; border: 0; cursor: pointer; justify-self: start; order: 0; }
+  .menu-btn i { display: block; width: 22px; height: 2px; background: var(--fg); }
+  .brand { order: 1; justify-self: center; }
+  .theme-btn { display: none; }
+  .top .btn-sm { order: 2; justify-self: end; }
+}
+@media (min-width: 820px) { .drawer { display: none !important; } }
 </style>
 </head>
 <body>
@@ -616,9 +659,13 @@ h2 { font-size: clamp(2.125rem, 7vw, 4rem); line-height: 1.02; letter-spacing: -
       <a href="#investimento">Preços</a>
       <a href="#duvidas">Dúvidas</a>
     </nav>
+    <button class="menu-btn" id="menuBtn" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="drawer"><i></i><i></i><i></i></button>
     <button class="theme-btn" id="themeBtn" type="button" aria-label="Trocar para tema claro"></button>
     <a class="btn btn-primary btn-sm" href="#contato">Contato</a>
   </div>
+<nav class="drawer" id="drawer" aria-label="Menu" hidden>
+    <a href="#portfolio">Portfólio</a><a href="#roteiro">Roteiro</a><a href="#sobre">Sobre</a><a href="guia/">Como pedir</a><a href="#investimento">Preços</a><a href="#duvidas">Dúvidas</a>
+  </nav>
 </header>
 
 <main>
@@ -652,6 +699,8 @@ h2 { font-size: clamp(2.125rem, 7vw, 4rem); line-height: 1.02; letter-spacing: -
     </div>
   </section>
 
+
+  <div class="strip" aria-hidden="true"><div class="strip-in"><span>Agenda aberta pra novos anúncios</span><i class="mascot"></i><span>Agenda aberta pra novos anúncios</span><i class="mascot"></i><span>Agenda aberta pra novos anúncios</span><i class="mascot"></i><span>Agenda aberta pra novos anúncios</span><i class="mascot"></i><span>Agenda aberta pra novos anúncios</span><i class="mascot"></i><span>Agenda aberta pra novos anúncios</span><i class="mascot"></i><span>Agenda aberta pra novos anúncios</span><i class="mascot"></i><span>Agenda aberta pra novos anúncios</span><i class="mascot"></i></div></div>
 
   <section id="roteiro">
     <div class="wrap">
@@ -763,6 +812,8 @@ h2 { font-size: clamp(2.125rem, 7vw, 4rem); line-height: 1.02; letter-spacing: -
     </div>
   </section>
 
+  <div class="strip" aria-hidden="true"><div class="strip-in"><span>Agenda aberta pra novos anúncios</span><i class="mascot"></i><span>Agenda aberta pra novos anúncios</span><i class="mascot"></i><span>Agenda aberta pra novos anúncios</span><i class="mascot"></i><span>Agenda aberta pra novos anúncios</span><i class="mascot"></i><span>Agenda aberta pra novos anúncios</span><i class="mascot"></i><span>Agenda aberta pra novos anúncios</span><i class="mascot"></i><span>Agenda aberta pra novos anúncios</span><i class="mascot"></i><span>Agenda aberta pra novos anúncios</span><i class="mascot"></i></div></div>
+
   <section id="duvidas">
     <div class="wrap">
       <h2 style="margin-top:12px">Dúvidas que sempre <span class="scrib">aparecem<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 11 C 45 16, 85 6, 125 12 S 180 14, 197 9"/></svg></span></h2></h2>
@@ -820,6 +871,7 @@ h2 { font-size: clamp(2.125rem, 7vw, 4rem); line-height: 1.02; letter-spacing: -
   </section>
 </main>
 
+<div class="wordmark" aria-hidden="true">FREY<span>.</span>MOTION</div>
 <footer class="foot">
   <div class="wrap">© 2026 FREY.MOTION · <a href="guia/">Como pedir</a></div>
 </footer>
@@ -938,7 +990,7 @@ function build() {
   render(1);
   var cards = rail.querySelectorAll('.card');
   step = cards[0].getBoundingClientRect().width + 16;
-  looping = N * step - 16 > rail.clientWidth + 1;
+  looping = false;
   prevBtn.hidden = nextBtn.hidden = !looping;
   if (looping) {
     var cw = cards[0].getBoundingClientRect().width;
@@ -1566,6 +1618,14 @@ document.getElementById('fichaLink').addEventListener('click',function(e){if(win
 })();
 
 
+
+(function () {
+  var b = document.getElementById('menuBtn'), d = document.getElementById('drawer'); if (!b || !d) return;
+  function set(o) { d.hidden = !o; b.setAttribute('aria-expanded', o ? 'true' : 'false'); }
+  b.addEventListener('click', function () { set(d.hidden); });
+  d.addEventListener('click', function (e) { if (e.target.closest('a')) set(false); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') set(false); });
+})();
 </script>
 </body>
 </html>
