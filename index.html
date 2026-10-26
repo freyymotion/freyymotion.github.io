@@ -682,6 +682,25 @@ h2 .scrib { text-transform: uppercase; }
 .plan .badge { border-radius: 999px; }
 .dm-note { font-family: var(--font-hand); }
 .card .poster { border-radius: var(--r); }
+
+/* ===== roteiro: cartões que entram "pulando" e empurram o anterior (animação do João) ===== */
+.js .story { height: calc(var(--n, 4) * 40vh + 44vh); }
+.js .story .items { position: relative; display: flex; align-items: stretch; gap: 14px; width: 100%; transition: transform .75s cubic-bezier(.3,1.2,.5,1); will-change: transform; }
+.js .story .items > * { grid-area: auto; flex: 0 0 min(82%, 440px); width: auto; opacity: 0; pointer-events: none; transform: translateY(18px) rotate(5deg) scale(.82); transform-origin: 50% 85%; transition: opacity .3s ease, transform .7s cubic-bezier(.34,1.56,.64,1); }
+.js .story .items > .is-past { opacity: .4; transform: scale(.95); }
+.js .story .items > .is-on { opacity: 1; transform: none; pointer-events: auto; }
+.js .story .items > *:nth-child(3n+1) { --bc: #3f9462; }
+.js .story .items > *:nth-child(3n+2) { --bc: #c8f83e; }
+.js .story .items > *:nth-child(3n) { --bc: #ff4d4d; }
+.js .story .items > .sc, .js .story .rt li { background: var(--panel); border: 1px solid var(--bc); border-radius: var(--r); }
+.js .story .rt li { align-content: start; padding: 24px; min-height: 220px; }
+.js .story .rt li::before { color: var(--bc); }
+.js .story .rt b { font-size: clamp(1.75rem, 7vw, 2.5rem); margin-top: 18px; }
+.js .story .items > .sc h3 { color: var(--fg); }
+.js .story .items > .sc i { color: var(--bc); }
+@media (prefers-reduced-motion: reduce) { .js .story .items, .js .story .items > * { transition: opacity .2s; } .js .story .items > * { transform: none; } }
+.js .story-pin { grid-template-columns: minmax(0, 1fr); }
+.js .story .items { min-width: 0; }
 </style>
 </head>
 <body>
@@ -1655,6 +1674,8 @@ document.getElementById('fichaLink').addEventListener('click',function(e){if(win
       if (i === st.cur) return; st.cur = i;
       st.items.forEach(function (x, k) { x.classList.toggle('is-on', k === i); x.classList.toggle('is-past', k < i); x.setAttribute('aria-hidden', k === i ? 'false' : 'true'); });
       for (var d = 0; d < st.dots.length; d++) st.dots[d].classList.toggle('on', d === i);
+      var tr = st.el.querySelector('.items'), cur = st.items[i];
+      tr.style.transform = 'translateX(' + Math.round(-cur.offsetLeft + (tr.parentElement.clientWidth - cur.offsetWidth) / 2) + 'px)';
       var P = (st.star ? SPOTS2 : SPOTS)[i % 5], m = st.mas; if (st.star) P = [P[0], P[1], P[2], P[3] + 0];
       m.style.setProperty('--x', P[0] + '%'); m.style.setProperty('--y', P[1] === 'T' ? '2px' : 'calc(100% - 90px)'); m.style.setProperty('--s', P[2]); m.style.setProperty('--r', P[3] + 'deg');
       m.classList.remove('pop'); void m.offsetWidth; m.classList.add('pop'); look(st, P[0] < 40 ? 1 : -1, 0);
@@ -1662,7 +1683,7 @@ document.getElementById('fichaLink').addEventListener('click',function(e){if(win
     if (!still) orbs.forEach(function (o) { var r = o.getBoundingClientRect(); o.style.setProperty('--py', Math.round(-(r.top + r.height / 2 - vh / 2) * 0.12) + 'px'); });
   }
   function req() { if (!tick) { tick = true; requestAnimationFrame(upd); } }
-  window.addEventListener('scroll', req, { passive: true }); window.addEventListener('resize', req); upd();
+  window.addEventListener('scroll', req, { passive: true }); window.addEventListener('resize', function () { stories.forEach(function (x) { x.cur = -1; }); req(); }); upd();
 })();
 
 
