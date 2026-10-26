@@ -642,6 +642,46 @@ h2 { font-size: clamp(2.125rem, 7vw, 4rem); line-height: 1.02; letter-spacing: -
   .top .btn-sm { order: 2; justify-self: end; }
 }
 @media (min-width: 820px) { .drawer { display: none !important; } }
+
+/* ===== bento: painéis arredondados, uma cor, traço à mão ===== */
+:root { --panel: #151517; --panel-line: #ffffff12; --r: 22px; }
+:root[data-theme="light"] { --panel: #ffffff; --panel-line: #00000012; }
+.bp { background: var(--panel); border: 1px solid var(--panel-line); border-radius: var(--r); padding: 22px; min-width: 0; }
+.pill { display: inline-block; font: 500 .75rem/1 var(--font-mono); letter-spacing: .02em; padding: 7px 12px; border-radius: 999px; background: color-mix(in srgb, var(--accent) 22%, transparent); color: var(--fg); width: max-content; }
+.chips-row { display: flex; flex-wrap: wrap; gap: 8px; }
+h2 { text-transform: uppercase; font-weight: 800; letter-spacing: -0.03em; }
+h2 .scrib { text-transform: uppercase; }
+/* hero */
+.hero { padding-block: 28px 56px; }
+.bento { display: grid; grid-template-columns: 1fr; gap: 12px; }
+.bp-title { padding: clamp(22px, 5vw, 48px); }
+.bp-mas { display: grid; place-items: center; padding: 28px; min-height: 220px; }
+.bp-mas .hero-mascot, .bp-mas .live.hero-mascot { position: relative; right: auto; bottom: auto; width: min(260px, 70%); margin: 0; }
+.bp-s { display: grid; gap: 8px; text-decoration: none; color: var(--fg); align-content: space-between; min-height: 130px; transition: transform .2s; }
+.bp-s b { font: 800 1.5rem/1.1 var(--font-display); letter-spacing: -0.02em; }
+.bp-s small { color: var(--muted); font: 400 .8125rem var(--font-mono); }
+.bp-s:active { transform: scale(.98); }
+.hero .wrap h1 { margin-top: 18px; }
+@media (min-width: 900px) {
+  .bento { grid-template-columns: repeat(6, 1fr); }
+  .bp-title { grid-column: 1 / 5; grid-row: 1 / 3; }
+  .bp-mas { grid-column: 5 / 7; grid-row: 1 / 3; }
+  .bp-s { grid-column: span 2; }
+  .hero .wrap h1 { font-size: clamp(3rem, 6vw, 5.5rem); }
+}
+/* painéis nas outras seções */
+.sc, .why, .dm-card, .plan, .send, .faq details, .ficha-cta { background: var(--panel); border: 1px solid var(--panel-line); border-radius: var(--r); }
+.why { border-left-width: 1px; padding: 22px; }
+.sc { padding: 22px; }
+.faq details { padding: 4px 20px; margin-bottom: 10px; border-bottom: 1px solid var(--panel-line); }
+.faq { border-top: 0; }
+.about-main { background: var(--panel); border: 1px solid var(--panel-line); border-radius: var(--r); padding: clamp(22px, 4vw, 40px); }
+.js .story .rt li { background: var(--panel); border: 1px solid var(--panel-line); border-radius: var(--r); padding: 22px; }
+#investimento .plan, #investimento .send { background: var(--panel); border-color: var(--panel-line); }
+.plan[aria-pressed="true"] { border-color: var(--accent); box-shadow: none !important; }
+.plan .badge { border-radius: 999px; }
+.dm-note { font-family: var(--font-hand); }
+.card .poster { border-radius: var(--r); }
 </style>
 </head>
 <body>
@@ -672,8 +712,8 @@ h2 { font-size: clamp(2.125rem, 7vw, 4rem); line-height: 1.02; letter-spacing: -
   <section class="hero" id="inicio">
     <span class="orb o1" aria-hidden="true"></span>
     <svg class="star s1" viewBox="0 0 100 100" aria-hidden="true"><use href="#st8"/></svg><svg class="star s2" viewBox="0 0 100 100" aria-hidden="true"><use href="#st8"/></svg>
-    <div class="wrap">
-      <div class="live hero-mascot" id="mascot" role="img" aria-label="Mascote FREY"><span class="body"></span><span class="mouth" id="mouth"></span><svg viewBox="0 0 860 762" aria-hidden="true"><g class="eye" id="eyeA"><circle class="pupil" id="pA" cx="445" cy="416" r="47"/></g><g class="eye" id="eyeB"><circle class="pupil" id="pB" cx="539" cy="439" r="31"/></g></svg><span class="hold-hint" aria-hidden="true">segura o mascote</span></div>
+    <div class="wrap bento">
+      <div class="bp bp-title">
       <h1>Roteiro, voz<br>e <span class="scrib">motion<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 13 C 32 5, 62 17, 102 9 S 170 7, 197 12"/></svg></span>.</h1>
       <p class="tagline">O anúncio inteiro, pronto pra publicar.</p>
       <p class="lede">Sou o João. Eu escrevo, narro e animo o seu anúncio pra Reels e TikTok. Você só posta.</p>
@@ -682,6 +722,13 @@ h2 { font-size: clamp(2.125rem, 7vw, 4rem); line-height: 1.02; letter-spacing: -
         <a class="btn" href="#portfolio">Explorar os projetos</a>
       </div>
       <p class="open-note"><i aria-hidden="true"></i>Agenda aberta pra novos anúncios.</p>
+      </div>
+      <div class="bp bp-mas">
+      <div class="live hero-mascot" id="mascot" role="img" aria-label="Mascote FREY"><span class="body"></span><span class="mouth" id="mouth"></span><svg viewBox="0 0 860 762" aria-hidden="true"><g class="eye" id="eyeA"><circle class="pupil" id="pA" cx="445" cy="416" r="47"/></g><g class="eye" id="eyeB"><circle class="pupil" id="pB" cx="539" cy="439" r="31"/></g></svg><span class="hold-hint" aria-hidden="true">segura o mascote</span></div>
+      </div>
+      <a class="bp bp-s" href="https://ig.me/m/frey.motion" target="_blank" rel="noopener"><span class="pill">Chamar direto</span><b>@frey.motion</b><small>Instagram</small></a>
+      <a class="bp bp-s" href="#investimento"><span class="pill">A partir de</span><b>R$70</b><small>Ad simples</small></a>
+      <a class="bp bp-s" href="#investimento"><span class="pill">Entrega</span><b>3 dias úteis</b><small>a partir do pedido</small></a>
     </div>
   </section>
 
@@ -738,6 +785,7 @@ h2 { font-size: clamp(2.125rem, 7vw, 4rem); line-height: 1.02; letter-spacing: -
           <p class="lead">Edito vídeo há 4 anos e, faz 1, me dedico só a motion design. Faço o anúncio inteiro: roteiro, voz, animação e legenda.</p>
           
           <p>Você me manda o produto. Eu te entrego o anúncio pronto pra postar.</p>
+          <div class="chips-row"><span class="pill">Roteiro</span><span class="pill">Voz</span><span class="pill">Motion</span><span class="pill">Legenda</span></div>
         </div>
       </div>
       <div class="dm" aria-label="Exemplo de conversa no Instagram">
